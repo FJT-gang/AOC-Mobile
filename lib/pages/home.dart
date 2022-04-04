@@ -1,4 +1,4 @@
-import 'package:aoc/globals.dart';
+import 'package:aoc/general/globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
           child: Container(
             child: Text(
               'Hey',
-              style: TextStyle(color: Globals.bgDarkBlue),
+              style: TextStyle(color: Colors.green),
             ),
           ),
         ));
