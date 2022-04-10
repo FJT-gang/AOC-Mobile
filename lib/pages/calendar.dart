@@ -14,7 +14,13 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Globals.bgDarkBlue,
-      body: Wrap(children: <Widget>[Meeting(), Container()]),
+      body: Wrap(children: <Widget>[
+        Meeting(
+          key: UniqueKey(),
+          title: "Meeting 1",
+          description: "Op dit event gaan we ...",
+        )
+      ]),
     );
   }
 }

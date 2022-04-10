@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-      home: WelcomePage(),
+      home: Calendar(),
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => LoginPage(),
