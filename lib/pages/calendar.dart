@@ -59,7 +59,7 @@ class _CalendarState extends State<Calendar> {
                   color: Colors.lightBlue[200],
                   shape: BoxShape.circle,
                 ),
-                todayTextStyle: TextStyle(color: Globals.black),
+                todayTextStyle: TextStyle(color: Colors.black),
                 selectedDecoration: BoxDecoration(
                   color: Globals.bgLightBlue,
                   shape: BoxShape.circle,
