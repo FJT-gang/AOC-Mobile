@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Globals
+import 'package:aoc/general/globals.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+// Google Fonts
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,47 +19,68 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 207, 238, 255),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Login',
-              style: TextStyle(fontSize: 60),
+        backgroundColor: Globals.bgLightBlue,
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 90),
+                Text('Welcome',
+                    style: GoogleFonts.scada(
+                      textStyle: const TextStyle(fontSize: 60),
+                      // fontWeight: FontWeight.w600
+                    )),
+                const SizedBox(height: 290),
+                Column(
+                  children: [
+                    LoginWidget(
+                      text: 'Sign In',
+                      route: '/home'
+                      ),
+                    const SizedBox(height: 2),
+                    LoginWidget(
+                      text: 'Sign Up',
+                      route: '/home'
+                      ),
+                  ],
+                )
+              ],
             ),
-            SizedBox(
-              height: 15,
-            ),
-            ElevatedButton(
-              child: Text(
-                'Login',
-                style: TextStyle(fontSize: 30),
-              ),
-              style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 53, 125, 166),
-                  textStyle: TextStyle(color: Colors.white),
-                  minimumSize: Size(150, 100)),
-              onPressed: () {
-                Navigator.pushNamed(context, '/home');
-              },
-            ),
-            SizedBox(),
-            ElevatedButton(
-              child: Text(
-                'Register',
-                style: TextStyle(fontSize: 30),
-              ),
-              style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 53, 125, 166),
-                  textStyle: TextStyle(color: Colors.white),
-                  minimumSize: Size(150, 100)),
-              onPressed: () {
-                Navigator.pushNamed(context, '/register');
-              },
-            ),
-          ],
+          ),
+        ));
+  }
+}
+
+// ignore: must_be_immutable
+class LoginWidget extends StatelessWidget {
+  late String text;
+  late String route;
+
+  LoginWidget({
+    Key? key, 
+    required this.text,
+    this.route = '/login'
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 300,
+      height: 50,
+      child: ElevatedButton(
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 20),
         ),
+        style: ElevatedButton.styleFrom(
+            primary: Globals.bgDarkBlue,
+            textStyle: const TextStyle(
+              color: Colors.white,
+            ),
+            maximumSize: const Size(150, 100)),
+        onPressed: () {
+          Navigator.pushNamed(context, route);
+        },
       ),
     );
   }
