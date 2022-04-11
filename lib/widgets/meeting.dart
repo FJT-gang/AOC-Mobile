@@ -18,29 +18,32 @@ class Meeting extends StatefulWidget {
 class _MeetingState extends State<Meeting> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 6),
-          child: Text(
-            widget.title,
-            style: TextStyle(
-                color: Globals.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: Text(
+              widget.title,
+              style: TextStyle(
+                  color: Globals.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 4, 8, 8),
-          child: Text(
-            widget.description,
-            style: TextStyle(
-                color: Globals.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 4, 8, 8),
+            child: Text(
+              widget.description,
+              style: TextStyle(
+                  color: Globals.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
