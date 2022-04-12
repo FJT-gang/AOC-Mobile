@@ -1,5 +1,5 @@
 import 'package:aoc/general/globals.dart';
-import 'package:aoc/widgets/meeting.dart';
+import 'package:aoc/pages/event.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -11,9 +11,22 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  // remove 'late' but gives error
+  late Map<DateTime, List<Event>> selectedEvents;
+
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+
+  @override
+  void initState() {
+    selectedEvents = {};
+    super.initState();
+  }
+
+  List<Event> _getEventsfromDay(DateTime date) {
+    return selectedEvents[date] ?? [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +35,9 @@ class _CalendarState extends State<Calendar> {
             backgroundColor: Globals.bgDarkBlue,
             body: TableCalendar(
               headerStyle: HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
+                formatButtonVisible: true,
+                titleCentered: false,
+                formatButtonShowsNext: false,
               ),
               focusedDay: selectedDay,
               firstDay: DateTime(2022),
@@ -47,6 +61,8 @@ class _CalendarState extends State<Calendar> {
               selectedDayPredicate: (DateTime date) {
                 return isSameDay(selectedDay, date);
               },
+
+              eventLoader: _getEventsfromDay,
 
               // To style the calendar
               calendarStyle: CalendarStyle(
