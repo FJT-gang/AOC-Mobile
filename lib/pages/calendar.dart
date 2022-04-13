@@ -32,56 +32,63 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Globals.bgDarkBlue,
-            body: TableCalendar(
-              headerStyle: HeaderStyle(
-                formatButtonVisible: true,
-                titleCentered: false,
-                formatButtonShowsNext: false,
-              ),
-              focusedDay: selectedDay,
-              firstDay: DateTime(2022),
-              lastDay: DateTime(2050),
-              calendarFormat: format,
-              onFormatChanged: (CalendarFormat _format) {
-                setState(() {
-                  format = _format;
-                });
-              },
-              startingDayOfWeek: StartingDayOfWeek.monday,
-              daysOfWeekVisible: true,
+      backgroundColor: Globals.bgDarkBlue,
+      body: TableCalendar(
+        headerStyle: HeaderStyle(
+          formatButtonVisible: true,
+          titleCentered: false,
+          formatButtonShowsNext: false,
+        ),
+        focusedDay: selectedDay,
+        firstDay: DateTime(2022),
+        lastDay: DateTime(2050),
+        calendarFormat: format,
+        onFormatChanged: (CalendarFormat _format) {
+          setState(() {
+            format = _format;
+          });
+        },
+        startingDayOfWeek: StartingDayOfWeek.monday,
+        daysOfWeekVisible: true,
 
-              // Day Changed
-              onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                setState(() {
-                  selectedDay = selectDay;
-                  focusedDay = focusDay;
-                });
-              },
-              selectedDayPredicate: (DateTime date) {
-                return isSameDay(selectedDay, date);
-              },
+        // Day Changed
+        onDaySelected: (DateTime selectDay, DateTime focusDay) {
+          setState(() {
+            selectedDay = selectDay;
+            focusedDay = focusDay;
+          });
+        },
+        selectedDayPredicate: (DateTime date) {
+          return isSameDay(selectedDay, date);
+        },
 
-              eventLoader: _getEventsfromDay,
+        eventLoader: _getEventsfromDay,
 
-              // To style the calendar
-              calendarStyle: CalendarStyle(
-                defaultTextStyle: TextStyle(color: Globals.white),
-                weekendTextStyle: TextStyle(color: Globals.white),
-                //outsideTextStyle: TextStyle(color: Colors.grey[400]),
-                outsideDaysVisible: false, //out-comment line above if true
-                isTodayHighlighted: true,
-                todayDecoration: BoxDecoration(
-                  color: Colors.lightBlue[200],
-                  shape: BoxShape.circle,
-                ),
-                todayTextStyle: TextStyle(color: Colors.black),
-                selectedDecoration: BoxDecoration(
-                  color: Globals.bgLightBlue,
-                  shape: BoxShape.circle,
-                ),
-                selectedTextStyle: TextStyle(color: Globals.black),
-              ),
-            )));
+        // To style the calendar
+        calendarStyle: CalendarStyle(
+          defaultTextStyle: TextStyle(color: Globals.white),
+          weekendTextStyle: TextStyle(color: Globals.white),
+          //outsideTextStyle: TextStyle(color: Colors.grey[400]),
+          outsideDaysVisible: false, //out-comment line above if true
+          isTodayHighlighted: true,
+          todayDecoration: BoxDecoration(
+            color: Colors.lightBlue[200],
+            shape: BoxShape.circle,
+          ),
+          todayTextStyle: TextStyle(color: Colors.black),
+          selectedDecoration: BoxDecoration(
+            color: Globals.bgLightBlue,
+            shape: BoxShape.circle,
+          ),
+          selectedTextStyle: TextStyle(color: Globals.black),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {},
+          label: Text(
+            "Add event",
+            style: TextStyle(color: Colors.black),
+          )),
+    ));
   }
 }
