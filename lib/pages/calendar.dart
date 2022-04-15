@@ -45,9 +45,19 @@ class _CalendarState extends State<Calendar> {
         children: [
           TableCalendar(
             headerStyle: HeaderStyle(
+              headerMargin: EdgeInsets.only(bottom: 20),
               formatButtonVisible: true,
               titleCentered: false,
               formatButtonShowsNext: false,
+              decoration: BoxDecoration(
+                color: Globals.bgLightBlue,
+                borderRadius: BorderRadiusDirectional.only(
+                  topStart: Radius.zero,
+                  topEnd: Radius.zero,
+                  bottomStart: Radius.circular(12),
+                  bottomEnd: Radius.circular(12),
+                ),
+              ),
             ),
             focusedDay: selectedDay,
             firstDay: DateTime(2022),
@@ -60,6 +70,10 @@ class _CalendarState extends State<Calendar> {
             },
             startingDayOfWeek: StartingDayOfWeek.monday,
             daysOfWeekVisible: true,
+            daysOfWeekStyle: DaysOfWeekStyle(
+              weekdayStyle: TextStyle(color: Globals.white),
+              weekendStyle: TextStyle(color: Globals.white),
+            ),
 
             // Day Changed
             onDaySelected: (DateTime selectDay, DateTime focusDay) {
@@ -82,7 +96,7 @@ class _CalendarState extends State<Calendar> {
               outsideDaysVisible: false, //out-comment line above if true
               isTodayHighlighted: true,
               todayDecoration: BoxDecoration(
-                color: Colors.lightBlue[200],
+                color: Color.fromARGB(255, 107, 183, 246),
                 shape: BoxShape.circle,
               ),
               todayTextStyle: TextStyle(color: Colors.black),
@@ -99,6 +113,7 @@ class _CalendarState extends State<Calendar> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Globals.bgLightBlue,
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -137,9 +152,12 @@ class _CalendarState extends State<Calendar> {
         ),
         label: Text(
           "Add event",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Globals.black),
         ),
-        icon: Icon(Icons.add),
+        icon: Icon(
+          Icons.add,
+          color: Globals.black,
+        ),
       ),
     ));
   }
