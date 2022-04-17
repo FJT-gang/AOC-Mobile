@@ -2,6 +2,7 @@ import 'package:aoc/pages/calendar.dart';
 import 'package:aoc/pages/home.dart';
 import 'package:aoc/pages/welcome.dart';
 import 'package:aoc/pages/login.dart';
+import 'package:aoc/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 // Google Fonts
@@ -13,11 +14,12 @@ void main() => runApp(MaterialApp(
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-      initialRoute: '/calendar',
+      initialRoute: '/profile',
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => LoginPage(),
         '/home': (context) => Home(),
         '/calendar': (context) => Calendar(),
+        '/profile': (context) => ProfilePage(),
       },
     ));
