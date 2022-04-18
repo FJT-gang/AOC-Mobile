@@ -16,12 +16,15 @@ void main() => runApp(MaterialApp(
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
+
       initialRoute: '/home',
+  
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
         '/signin': (context) => SignInPage(),
         '/home': (context) => Home(),
         '/calendar': (context) => Calendar(),
+        '/profile': (context) => ProfilePage(),
       },
     ));
