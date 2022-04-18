@@ -16,7 +16,7 @@ void main() => runApp(MaterialApp(
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-      initialRoute: '/calendar',
+      initialRoute: '/home',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),

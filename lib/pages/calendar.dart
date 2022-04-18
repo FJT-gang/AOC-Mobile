@@ -117,7 +117,7 @@ class _CalendarState extends State<Calendar> {
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Add event"),
+            title: Text("Add event on this day"),
             content: TextFormField(
               controller: _eventController,
             ),
