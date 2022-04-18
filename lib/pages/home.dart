@@ -1,4 +1,5 @@
 import 'package:aoc/general/globals.dart';
+import 'package:aoc/pages/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,15 +8,19 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("AOC-Mobile"),
+          backgroundColor: Globals.bgDarkBlue,
+          foregroundColor: Globals.black,
+          centerTitle: true,
+        ),
         backgroundColor: Globals.bgLightBlue,
-        body: Center(
-          child: Container(
-            child: Text(
-              'Hey',
-              style: TextStyle(color: Colors.green),
+        body: Container(
+            // events tonen? view met title & date?
             ),
-          ),
-        ));
+      ),
+    );
   }
 }
