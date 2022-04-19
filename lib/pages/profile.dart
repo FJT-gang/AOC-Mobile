@@ -19,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: EdgeInsets.zero,
       children: <Widget>[
         buildTop(),
-        buildContent(),
+        //buildContent(),
       ],
     ));
   }
@@ -58,6 +58,6 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundImage: NetworkImage('https://imgur.com/a/H2bOoIM'),
       );
 
-  Widget buildContent();
+  //Widget buildContent();
   //zet bij de build content gwn de tekst die ge wilt.
 }

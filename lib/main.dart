@@ -1,3 +1,4 @@
+import 'package:aoc/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 // Pages
@@ -16,9 +17,7 @@ void main() => runApp(MaterialApp(
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-
       initialRoute: '/home',
-  
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
