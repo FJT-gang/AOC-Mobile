@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 // Globals
 import 'package:aoc/general/globals.dart';
 
-
+// ignore: must_be_immutable
 class LoginWidget extends StatelessWidget {
   late String text;
-  late String route;
+  final void Function() pressed;
 
-  LoginWidget({
-    Key? key, 
-    required this.text,
-    this.route = '/login'
-  }) : super(key: key);
+  LoginWidget(
+      {Key? key,
+      required this.text,
+      required this.pressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +26,14 @@ class LoginWidget extends StatelessWidget {
         ),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Globals.bgDarkBlue),
-            elevation: MaterialStateProperty.all(0),
-            // shape: MaterialStateProperty.all(
-              // RoundedRectangleBorder(
-              // borderRadius: BorderRadius.circular(18),
-              // ),
-            // ),
+          elevation: MaterialStateProperty.all(0),
+          // shape: MaterialStateProperty.all(
+          // RoundedRectangleBorder(
+          // borderRadius: BorderRadius.circular(18),
+          // ),
+          // ),
         ),
-        onPressed: () {
-          Navigator.pushNamed(context, route);
-        },
+        onPressed: pressed
       ),
     );
   }

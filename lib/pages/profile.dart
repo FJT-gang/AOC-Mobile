@@ -1,9 +1,9 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -56,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
         backgroundImage: AssetImage('assets/profile_image.jpeg'),
+
       );
   //Widget buildContent();
   //zet bij de build content gwn de tekst die ge wilt.

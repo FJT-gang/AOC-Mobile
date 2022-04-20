@@ -18,7 +18,7 @@ class _CalendarState extends State<Calendar> {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
-  TextEditingController _eventController = TextEditingController();
+  final TextEditingController _eventController = TextEditingController();
 
   @override
   void initState() {
@@ -45,13 +45,13 @@ class _CalendarState extends State<Calendar> {
         children: [
           TableCalendar(
             headerStyle: HeaderStyle(
-              headerMargin: EdgeInsets.only(bottom: 20),
+              headerMargin: const EdgeInsets.only(bottom: 20),
               formatButtonVisible: true,
               titleCentered: false,
               formatButtonShowsNext: false,
               decoration: BoxDecoration(
                 color: Globals.bgLightBlue,
-                borderRadius: BorderRadiusDirectional.only(
+                borderRadius: const BorderRadiusDirectional.only(
                   topStart: Radius.zero,
                   topEnd: Radius.zero,
                   bottomStart: Radius.circular(12),
@@ -95,11 +95,11 @@ class _CalendarState extends State<Calendar> {
               //outsideTextStyle: TextStyle(color: Colors.grey[400]),
               outsideDaysVisible: false, //out-comment line above if true
               isTodayHighlighted: true,
-              todayDecoration: BoxDecoration(
+              todayDecoration: const BoxDecoration(
                 color: Color.fromARGB(255, 107, 183, 246),
                 shape: BoxShape.circle,
               ),
-              todayTextStyle: TextStyle(color: Colors.black),
+              todayTextStyle: const TextStyle(color: Colors.black),
               selectedDecoration: BoxDecoration(
                 color: Globals.bgLightBlue,
                 shape: BoxShape.circle,
@@ -117,14 +117,14 @@ class _CalendarState extends State<Calendar> {
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Add event on this day"),
+            title: const Text("Add event on this day"),
             content: TextFormField(
               controller: _eventController,
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text("Cancel"),
+                child: const Text("Cancel"),
               ),
               TextButton(
                 onPressed: () {
@@ -145,7 +145,7 @@ class _CalendarState extends State<Calendar> {
                   setState(() {});
                   return;
                 },
-                child: Text("Ok"),
+                child: const Text("Ok"),
               )
             ],
           ),

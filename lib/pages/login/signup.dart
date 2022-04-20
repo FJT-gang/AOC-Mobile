@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // widgets
@@ -10,6 +9,10 @@ import 'package:aoc/general/globals.dart';
 // Google fonts
 import 'package:google_fonts/google_fonts.dart';
 
+// firebase
+import 'package:firebase_auth/firebase_auth.dart';
+
+// ignore: must_be_immutable
 class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
 
@@ -52,7 +55,16 @@ class SignUpPage extends StatelessWidget {
                       obscure: true,
                     ),
                     const SizedBox(height: 40),
-                    LoginWidget(key: UniqueKey(), text: 'Sign Up')
+                    LoginWidget(
+                      text: 'Sign Up',
+                      pressed: () {
+                        FirebaseAuth.instance.createUserWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        )
+                        .then((_) => Navigator.pushNamed(context, '/home'));
+                      },
+                    )
                   ],
                 ),
               ),
