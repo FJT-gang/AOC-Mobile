@@ -11,19 +11,27 @@ import 'package:aoc/pages/login/signIn.dart';
 // Google Fonts
 import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(MaterialApp(
-      theme: ThemeData(
-        textTheme: GoogleFonts.robotoTextTheme(),
-      ),
-      debugShowCheckedModeBanner: false,
-      title: "AOC Mobile",
-      initialRoute: '/home',
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/signup': (context) => SignUpPage(),
-        '/signin': (context) => SignInPage(),
-        '/home': (context) => Home(),
-        '/calendar': (context) => Calendar(),
-        '/profile': (context) => ProfilePage(),
-      },
-    ));
+// Firebase
+import 'package:firebase_core/firebase_core.dart';
+
+Future <void> main() async {
+  WidgetsFlutterBinding();
+  await Firebase.initializeApp();
+
+  runApp(MaterialApp(
+    theme: ThemeData(
+      textTheme: GoogleFonts.robotoTextTheme(),
+    ),
+    debugShowCheckedModeBanner: false,
+    title: "AOC Mobile",
+    initialRoute: '/home ',
+    routes: {
+      '/login': (context) => LoginPage(),
+      '/signup': (context) => SignUpPage(),
+      '/signin': (context) => SignInPage(),
+      '/home': (context) => Home(),
+      '/calendar': (context) => Calendar(),
+      '/profile': (context) => ProfilePage(),
+    },
+  ));
+}
