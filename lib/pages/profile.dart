@@ -14,14 +14,16 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        buildTop(),
-        //buildContent(),
-      ],
-    ));
+    return SafeArea(
+      child: Scaffold(
+          body: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          buildTop(),
+          //buildContent(),
+        ],
+      )),
+    );
   }
 
   Widget buildTop() {
@@ -44,20 +46,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildCoverImage() => Container(
         color: Colors.grey,
-        child: Image.network(
-          'https://imgur.com/okhcNkJ',
-          width: double.infinity,
-          height: coverHeight,
-          fit: BoxFit.cover,
-        ),
+        child: Image.asset('assets/banner_image.jpg'),
+        width: double.infinity,
+        height: coverHeight,
+        //fit: BoxFit.cover,
       );
 
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: NetworkImage('https://imgur.com/a/H2bOoIM'),
+        backgroundImage: AssetImage('assets/profile_image.jpeg'),
       );
-
   //Widget buildContent();
   //zet bij de build content gwn de tekst die ge wilt.
 }
