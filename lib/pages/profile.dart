@@ -1,5 +1,10 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
 import 'package:flutter/material.dart';
+// Widgets
+import 'package:aoc/widgets/themeWidget.dart';
+// Provider
+import 'package:provider/provider.dart';
+import 'package:aoc/providers/themeprov.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -14,15 +19,41 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+     var themeProv = Provider.of<ThemeProv>(context, listen: true);
     return SafeArea(
       child: Scaffold(
-          body: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          buildTop(),
-          //buildContent(),
-        ],
-      )),
+          body: Container(
+            decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                themeProv.grStart,
+                themeProv.grEnd,
+              ],
+            )
+          ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                        padding: EdgeInsets.zero,
+                        children: <Widget>[
+                  buildTop(),
+                  //buildContent(),
+                        ],
+                      ),
+                ),
+
+                
+            //--- Dit is alles onder profielfoto ---
+            ThemeSelector(),
+              ],
+            ),
+
+
+
+          )),
     );
   }
 

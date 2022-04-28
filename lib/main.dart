@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-      initialRoute: '/home',
+      initialRoute: '/profile',
       routes: {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
