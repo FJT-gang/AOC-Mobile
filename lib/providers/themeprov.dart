@@ -11,12 +11,12 @@ class ThemeProv extends ChangeNotifier {
   void changeTheme(color) {
     if (color == 'blue') {
       bgColor = Globals.bgLightBlue;
-      Color grStart = Globals.grBlueStart;
-      Color grEnd = Globals.grBlueEnd;
+      grStart = Globals.grBlueStart;
+      grEnd = Globals.grBlueEnd;
     } else if (color == 'orange') {
       bgColor = Globals.bgOrange;
-      Color grStart = Globals.grOrangeStart;
-      Color grEnd = Globals.grOrangeEnd;
+      grStart = Globals.grOrangeStart;
+      grEnd = Globals.grOrangeEnd;
     }
 
     notifyListeners();

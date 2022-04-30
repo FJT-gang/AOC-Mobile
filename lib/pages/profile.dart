@@ -47,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 
             //--- Dit is alles onder profielfoto ---
-            ThemeSelector(),
+            const ThemeSelector(),
               ],
             ),
 

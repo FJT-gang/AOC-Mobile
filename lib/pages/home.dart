@@ -18,16 +18,30 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: themeProv.bgColor,
-        appBar: AppBar(
-          title: const Text('AOC-Mobile'),
-          backgroundColor: themeProv.bgColor,
-          foregroundColor: Globals.black,
-          centerTitle: true,
-        ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
-          child: Column(children: const [
-            ThemeSelector(),
+          child: Column(children: [
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.black,
+                  )
+                )
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children:  const[
+                  ThemeSelector(),
+                  SizedBox(width: 60),
+                  Text('Home', style: TextStyle(
+                    fontSize: 40,
+                  ),)
+                ],),
+              ),
+            )
           ],),
         )
       ),
