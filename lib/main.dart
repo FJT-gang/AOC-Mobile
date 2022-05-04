@@ -51,12 +51,12 @@ class MyApp extends StatelessWidget {
       title: "AOC Mobile",
       initialRoute: '/home',
       routes: {
-        '/login': (context) => LoginPage(),
+        '/login': (context) => const LoginPage(),
         '/signup': (context) => SignUpPage(),
         '/signin': (context) => SignInPage(),
-        '/home': (context) => Home(),
-        '/calendar': (context) => Calendar(),
-        '/profile': (context) => ProfilePage(),
+        '/home': (context) => const Home(),
+        '/calendar': (context) => const Calendar(),
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }
