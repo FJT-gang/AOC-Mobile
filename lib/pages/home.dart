@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
-// Globals
-import 'package:aoc/general/globals.dart';
+
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
+
+// Globals
+import 'package:aoc/general/globals.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -41,7 +43,37 @@ class Home extends StatelessWidget {
                   ),)
                 ],),
               ),
-            )
+            ),
+            Column(children: [
+              const SizedBox(height: 20),
+              Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Ink.image(
+                      image: const AssetImage('assets/calendarImg.jpg'),
+                      // colorFilter: const ColorFilter.mode(Globals.bgOrange, BlendMode.color),
+                      height: 240,
+                      // width: 360,
+                      fit: BoxFit.cover,
+                      child: InkWell(
+                        onTap: () {},
+                      ),
+                    ),
+                    const Text(
+                      'Calendar', 
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40,
+                      )
+                    )
+                  ],
+                ),
+              )
+            ],)
           ],),
         )
       ),
