@@ -18,22 +18,15 @@ import 'package:aoc/providers/themeprov.dart';
 // Firebase
 import 'package:firebase_core/firebase_core.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding();
   await Firebase.initializeApp();
 
-
-  runApp(
-    MultiProvider(
-      providers: [ 
-        ChangeNotifierProvider(
-        create: (context) => ThemeProv(),
-      ),
-      ],
-      child: const MyApp()
-    )
-  );
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => ThemeProv(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

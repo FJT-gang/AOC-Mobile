@@ -19,41 +19,36 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-     var themeProv = Provider.of<ThemeProv>(context, listen: true);
+    var themeProv = Provider.of<ThemeProv>(context, listen: true);
     return SafeArea(
       child: Scaffold(
           body: Container(
-            decoration: BoxDecoration(
+        decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                themeProv.grStart,
-                themeProv.grEnd,
-              ],
-            )
-          ),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView(
-                        padding: EdgeInsets.zero,
-                        children: <Widget>[
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            themeProv.grStart,
+            themeProv.grEnd,
+          ],
+        )),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
                   buildTop(),
                   //buildContent(),
-                        ],
-                      ),
-                ),
-
-                
-            //--- Dit is alles onder profielfoto ---
-            const ThemeSelector(),
-              ],
+                ],
+              ),
             ),
 
-
-
-          )),
+            //--- Dit is alles onder profielfoto ---
+            const ThemeSelector(),
+          ],
+        ),
+      )),
     );
   }
 
@@ -80,14 +75,12 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Image.asset('assets/banner_image.jpg'),
         width: double.infinity,
         height: coverHeight,
-        //fit: BoxFit.cover,
       );
 
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
         backgroundImage: AssetImage('assets/profile_image.jpeg'),
-
       );
   //Widget buildContent();
   //zet bij de build content gwn de tekst die ge wilt.
