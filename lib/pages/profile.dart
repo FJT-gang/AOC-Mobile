@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.zero,
                 children: <Widget>[
                   buildTop(),
-                  //buildContent(),
+                  buildContent(),
                 ],
               ),
             ),
@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final top = coverHeight - profileHeight / 2;
     return Stack(
         clipBehavior: Clip.none,
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
         children: [
           Container(
             margin: EdgeInsets.only(bottom: bottom),
@@ -82,6 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Colors.grey.shade800,
         backgroundImage: AssetImage('assets/profile_image.jpeg'),
       );
-  //Widget buildContent();
+  Widget buildContent() => Text('hey');
   //zet bij de build content gwn de tekst die ge wilt.
 }
