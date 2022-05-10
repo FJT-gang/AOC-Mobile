@@ -80,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: AssetImage('assets/profile_image.jpeg'),
+        backgroundImage:const AssetImage('assets/profile_image.jpeg'),
       );
   //Widget buildContent();
   //zet bij de build content gwn de tekst die ge wilt.
