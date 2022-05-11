@@ -64,7 +64,7 @@ class SignInPage extends StatelessWidget {
                                 password: passwordController.text,
                               )
                               .then(
-                                  (_) => Navigator.pushNamed(context, '/home'));
+                                  (_) => Navigator.pushReplacementNamed(context, '/home'));
                         })
                   ],
                 ),
