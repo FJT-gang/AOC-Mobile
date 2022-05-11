@@ -7,13 +7,15 @@ class ThemeProv extends ChangeNotifier {
   Color bgColor = Globals.bgLightBlue;
   Color grStart = Globals.grBlueStart;
   Color grEnd = Globals.grBlueEnd;
+  String color = 'blue';
 
-  void changeTheme(color) {
-    if (color == 'blue') {
+  void changeTheme(colorr) {
+      color = colorr;
+    if (colorr == 'blue') {
       bgColor = Globals.bgLightBlue;
       grStart = Globals.grBlueStart;
       grEnd = Globals.grBlueEnd;
-    } else if (color == 'orange') {
+    } else if (colorr == 'orange') {
       bgColor = Globals.bgOrange;
       grStart = Globals.grOrangeStart;
       grEnd = Globals.grOrangeEnd;

@@ -51,76 +51,63 @@ class Home extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(height: 20),
-                    Card(
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24)),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Ink.image(
-                            image: const AssetImage('assets/calendarImg.jpg'),
-                            // colorFilter: const ColorFilter.mode(Globals.bgOrange, BlendMode.color),
-                            height: 240,
-                            // width: 360,
-                            fit: BoxFit.cover,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Calendar()));
-                              },
-                            ),
-                          ),
-                          const Text('Calendar',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
-                              ))
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Card(
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24)),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Ink.image(
-                            image: const AssetImage('assets/profileImg.jpg'),
-                            // colorFilter: const ColorFilter.mode(Globals.bgOrange, BlendMode.color),
-                            height: 240,
-                            // width: 360,
-                            fit: BoxFit.cover,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ProfilePage()));
-                              },
-                            ),
-                          ),
-                          const Text('Profile',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
-                              ))
-                        ],
-                      ),
-                    )
+                    HomeCard(
+                        cardTitle: 'Calendar',
+                        imgSource: 'assets/calendarImg${themeProv.color}.jpg',
+                        route: '/calendar'),
+                    const SizedBox(height: 20),
+                    HomeCard(
+                        cardTitle: 'Profile',
+                        imgSource: 'assets/profileImg.jpg',
+                        route: '/profile')
                   ],
                 )
               ],
             ),
           )),
+    );
+  }
+}
+
+class HomeCard extends StatelessWidget {
+  late String imgSource;
+  late String cardTitle;
+  late String route;
+  HomeCard(
+      {Key? key,
+      required this.imgSource,
+      required this.cardTitle,
+      required this.route})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Ink.image(
+            image: AssetImage(imgSource),
+            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.dstATop),
+            height: 240,
+            width: 360,
+            fit: BoxFit.cover,
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, route);
+              },
+            ),
+          ),
+          Text(cardTitle,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 40,
+              ))
+        ],
+      ),
     );
   }
 }
