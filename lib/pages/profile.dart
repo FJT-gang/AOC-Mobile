@@ -1,4 +1,6 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -39,13 +41,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.zero,
                 children: <Widget>[
                   buildTop(),
-                  buildContent(),
+                  IconButton(
+                      onPressed: () {}, icon: Image.asset('assets/email.png')),
+                  IconButton(
+                      onPressed: () {}, icon: Image.asset('assets/phone.png')),
+                  IconButton(
+                      onPressed: () {}, icon: Image.asset('assets/insta.png')),
                 ],
               ),
             ),
 
             //--- Dit is alles onder profielfoto ---
-            const ThemeSelector(),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: ThemeSelector(),
+            ),
           ],
         ),
       )),
@@ -80,8 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage:const AssetImage('assets/profile_image.jpeg'),
+        backgroundImage: const AssetImage('assets/profile_image.jpeg'),
       );
-  Widget buildContent() => Text('hey');
   //zet bij de build content gwn de tekst die ge wilt.
 }
