@@ -10,6 +10,7 @@ import 'package:aoc/pages/login/signIn.dart';
 
 // Google Fonts
 import 'package:google_fonts/google_fonts.dart';
+import 'package:aoc/providers/fireprov.dart';
 
 // Provider
 import 'package:provider/provider.dart';
@@ -24,7 +25,10 @@ Future<void> main() async {
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
-      create: (context) => ThemeProv(),
+      create: (context) => ThemeProv()
+    ),
+    ChangeNotifierProvider(
+      create: (context) => FireProv()
     ),
   ], child: const MyApp()));
 }
@@ -42,7 +46,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-      initialRoute: '/profile',
+      initialRoute: '/home',
       routes: {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => SignUpPage(),

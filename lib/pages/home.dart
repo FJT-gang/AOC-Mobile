@@ -1,5 +1,3 @@
-import 'package:aoc/pages/calendar.dart';
-import 'package:aoc/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 // Widgets
@@ -8,9 +6,6 @@ import 'package:aoc/widgets/themeWidget.dart';
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
-
-// Globals
-import 'package:aoc/general/globals.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
