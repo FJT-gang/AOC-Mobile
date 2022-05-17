@@ -30,6 +30,10 @@ Future<void> main() async {
     ChangeNotifierProvider(
       create: (context) => FireProv()
     ),
+    StreamProvider <List>(
+          create: (context) => FireProv().getCollections,
+          initialData:  [],
+        ),
   ], child: const MyApp()));
 }
 
@@ -46,7 +50,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-      initialRoute: '/home',
+      initialRoute: '/profile',
       routes: {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => SignUpPage(),

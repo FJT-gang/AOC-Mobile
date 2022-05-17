@@ -6,6 +6,7 @@ import 'package:aoc/widgets/themeWidget.dart';
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
+import 'package:aoc/providers/fireprov.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,6 +14,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
+    var fireProv = Provider.of<FireProv>(context, listen: true);
+
+
+
     return SafeArea(
       child: Scaffold(
           backgroundColor: themeProv.bgColor,
@@ -85,7 +90,8 @@ class HomeCard extends StatelessWidget {
         children: [
           Ink.image(
             image: AssetImage(imgSource),
-            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.dstATop),
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.6), BlendMode.dstATop),
             height: 240,
             width: 360,
             fit: BoxFit.cover,

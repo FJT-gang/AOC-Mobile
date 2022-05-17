@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
+// Firebase
+import 'package:firebase_auth/firebase_auth.dart';
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
+import 'package:aoc/providers/fireprov.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -20,6 +23,21 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
+    var fireProv = Provider.of<FireProv>(context, listen: true);
+    var fireStream = Provider.of<List>(context, listen: true);
+
+    var userId = FirebaseAuth.instance.currentUser!.uid;
+    late String userName = "";
+
+
+    fireStream.forEach((e) {
+      if (userId == e.data().keys.toList().first) {
+        userName = e.data()[userId]['name'];
+      }
+      // print(e.data()[fireProv.userId!.uid].toString());
+    });
+    // print('testttt');
+    // print(fireProv.userId);
     return SafeArea(
       child: Scaffold(
           body: Container(
@@ -45,6 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
 
             //--- Dit is alles onder profielfoto ---
+            Text('Welcome $userName'),
             const ThemeSelector(),
           ],
         ),
@@ -80,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage:const AssetImage('assets/profile_image.jpeg'),
+        backgroundImage: const AssetImage('assets/profile_image.jpeg'),
       );
   Widget buildContent() => Text('hey');
   //zet bij de build content gwn de tekst die ge wilt.
