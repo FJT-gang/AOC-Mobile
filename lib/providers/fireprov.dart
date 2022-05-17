@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 
 // Packages
@@ -13,26 +12,23 @@ class FireProv extends ChangeNotifier {
   var userId = FirebaseAuth.instance.currentUser;
   var now = DateFormat('EEEE, d/M/y').format(DateTime.now());
 
-  // Stream<List> get getCollections {
-  //   return inst
-  //       .collection(userId!.uid)
-  //       .snapshots()
-  //       .map((snapshots) => snapshots.docs.toList());
-  // }
+  Stream<List> get getCollections {
+    return inst
+        .collection('users')
+        .snapshots()
+        .map((snapshots) => snapshots.docs.toList());
+  }
 
   void setUserData(String name, String email) {
-      inst
-          .collection('users')
-          .doc(userId!.uid)
-          .set(
-            {
-              name: {
-                'userId': userId!.uid,
-                'email': email,
-              }
-            });
-    }
-  
+    userId = FirebaseAuth.instance.currentUser;
+    inst.collection('users').doc(userId!.uid).set({
+      userId!.uid: {
+        'name': name,
+        'email': email,
+      }
+    });
+  }
+
   // void changeShoe(afstand, naam) {
   //   inst.collection(userId!.uid).doc(naam.toString()).set({
   //     'afstand': afstand.toString(),

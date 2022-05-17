@@ -82,7 +82,7 @@ class SignUpPage extends StatelessWidget {
                               context: context,
                               builder: (context) => Alert(
                                 title: 'Unvalid Username', 
-                                content: 'Please enter a name between 2 and 10 letters.')
+                                content: 'Please enter a name between 2 and 10 letters.',)
                                 );
                         } else {
                           FirebaseAuth.instance
@@ -90,7 +90,10 @@ class SignUpPage extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text,
                               )
-                              .then((_) =>  fireProv.setUserData(usernameController.text, emailController.text))
+                              .then((_) =>  fireProv.setUserData(
+                                usernameController.text, 
+                                emailController.text,
+                                ))
                               .then((_) => Navigator.pushReplacementNamed(
                                   context, '/home'));
                         }
