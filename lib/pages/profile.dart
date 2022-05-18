@@ -1,5 +1,6 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
 
+
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -28,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
     var fireStream = Provider.of<List>(context, listen: true);
 
     var userId = FirebaseAuth.instance.currentUser!.uid;
+
 
     late String userName = '';
     String email = ' ';
@@ -72,10 +74,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
 
-
-            //--- Dit is alles onder profielfoto ---
             Text('Welcome $userName'),
-            const ThemeSelector(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12, top: 8),
+              child: const ThemeSelector(),
+            ),
+
           ],
         ),
       )),
