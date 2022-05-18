@@ -24,16 +24,12 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(
-      create: (context) => ThemeProv()
+    ChangeNotifierProvider(create: (context) => ThemeProv()),
+    ChangeNotifierProvider(create: (context) => FireProv()),
+    StreamProvider<List>(
+      create: (context) => FireProv().getCollections,
+      initialData: [],
     ),
-    ChangeNotifierProvider(
-      create: (context) => FireProv()
-    ),
-    StreamProvider <List>(
-          create: (context) => FireProv().getCollections,
-          initialData:  [],
-        ),
   ], child: const MyApp()));
 }
 
