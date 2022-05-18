@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FireProv extends ChangeNotifier {
   var inst = FirebaseFirestore.instance;
   var userId = FirebaseAuth.instance.currentUser;
+  var userName = '';
   var now = DateFormat('EEEE, d/M/y').format(DateTime.now());
 
   Stream<List> get getCollections {

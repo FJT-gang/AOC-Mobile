@@ -1,5 +1,5 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
-// import 'dart:html';
+
 
 import 'package:flutter/material.dart';
 // Widgets
@@ -29,14 +29,24 @@ class _ProfilePageState extends State<ProfilePage> {
     var fireStream = Provider.of<List>(context, listen: true);
 
     var userId = FirebaseAuth.instance.currentUser!.uid;
-    late String userName = "";
+
+
+    late String userName = '';
+    String email = ' ';
 
     fireStream.forEach((e) {
       if (userId == e.data().keys.toList().first) {
         userName = e.data()[userId]['name'];
+        email = e.data()[userId]['email'];
+        setState(() {});
       }
       // print(e.data()[fireProv.userId!.uid].toString());
     });
+    // @override
+    // void initState() {
+    //   super.initState();
+    // }
+
     // print('testttt');
     // print(fireProv.userId);
     return SafeArea(
@@ -58,20 +68,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.zero,
                 children: <Widget>[
                   buildTop(),
-                  IconButton(
-                      onPressed: () {}, icon: Image.asset('assets/email.png')),
-                  IconButton(
-                      onPressed: () {}, icon: Image.asset('assets/phone.png')),
-                  IconButton(
-                      onPressed: () {}, icon: Image.asset('assets/insta.png')),
+                  IconT(text: userName, icon: const Icon(Icons.person)),
+                  IconT(text: email, icon: const Icon(Icons.email_outlined)),
                 ],
               ),
             ),
+
             Text('Welcome $userName'),
             Padding(
               padding: const EdgeInsets.only(bottom: 12, top: 8),
               child: const ThemeSelector(),
             ),
+
           ],
         ),
       )),
@@ -109,4 +117,17 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundImage: const AssetImage('assets/profile_image.jpeg'),
       );
   //zet bij de build content gwn de tekst die ge wilt.
+}
+
+class IconT extends StatelessWidget {
+  late String text;
+  late Icon icon;
+  IconT({Key? key, required this.text, required this.icon}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [icon, Text(text)]);
+  }
 }
