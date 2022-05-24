@@ -1,6 +1,5 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
 
-
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -29,7 +28,6 @@ class _ProfilePageState extends State<ProfilePage> {
     var fireStream = Provider.of<List>(context, listen: true);
 
     var userId = FirebaseAuth.instance.currentUser!.uid;
-
 
     late String userName = '';
     String email = ' ';
@@ -66,20 +64,47 @@ class _ProfilePageState extends State<ProfilePage> {
             Expanded(
               child: ListView(
                 padding: EdgeInsets.zero,
-                children: <Widget>[
-                  buildTop(),
-                  IconT(text: userName, icon: const Icon(Icons.person)),
-                  IconT(text: email, icon: const Icon(Icons.email_outlined)),
+                children: [
+                  Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            color: Colors.grey,
+                            child: Image.asset('assets/banner_image.jpg'),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 15, top: 140),
+                              child: CircleAvatar(
+                                radius: profileHeight / 2,
+                                backgroundColor: Colors.grey.shade800,
+                                backgroundImage: const AssetImage(
+                                    'assets/profile_image.jpeg'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      IconT(text: userName, icon: const Icon(Icons.person)),
+                      IconT(
+                          text: email, icon: const Icon(Icons.email_outlined)),
+                    ],
+                  ),
                 ],
               ),
             ),
-
             Text('Welcome $userName'),
             Padding(
               padding: const EdgeInsets.only(bottom: 12, top: 8),
               child: const ThemeSelector(),
             ),
-
           ],
         ),
       )),
@@ -90,33 +115,10 @@ class _ProfilePageState extends State<ProfilePage> {
     final bottom = profileHeight / 2;
     final top = coverHeight - profileHeight / 2;
     return Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.centerLeft,
-        children: [
-          Container(
-            margin: EdgeInsets.only(bottom: bottom),
-            child: buildCoverImage(),
-          ),
-          Positioned(
-            top: top,
-            child: buildProfileImage(),
-          ),
-        ]);
+      clipBehavior: Clip.none,
+      alignment: Alignment.centerLeft,
+    );
   }
-
-  Widget buildCoverImage() => Container(
-        color: Colors.grey,
-        child: Image.asset('assets/banner_image.jpg'),
-        width: double.infinity,
-        height: coverHeight,
-      );
-
-  Widget buildProfileImage() => CircleAvatar(
-        radius: profileHeight / 2,
-        backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage('assets/profile_image.jpeg'),
-      );
-  //zet bij de build content gwn de tekst die ge wilt.
 }
 
 class IconT extends StatelessWidget {
