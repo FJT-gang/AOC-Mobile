@@ -1,6 +1,13 @@
 import 'package:aoc/general/globals.dart';
 import 'package:aoc/pages/event.dart';
 import 'package:flutter/material.dart';
+
+// Provider
+import 'package:provider/provider.dart';
+import 'package:aoc/providers/themeprov.dart';
+import 'package:aoc/providers/fireprov.dart';
+
+// import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Calendar extends StatefulWidget {
@@ -18,7 +25,8 @@ class _CalendarState extends State<Calendar> {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
-  final TextEditingController _eventController = TextEditingController();
+  final TextEditingController _eTitleC = TextEditingController();
+  final TextEditingController _eDescriptionC = TextEditingController();
 
   @override
   void initState() {
@@ -30,14 +38,19 @@ class _CalendarState extends State<Calendar> {
     return selectedEvents[date] ?? [];
   }
 
-  @override
-  void dispose() {
-    _eventController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _eventController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    var themeProv = Provider.of<ThemeProv>(context, listen: true);
+    var fireProv = Provider.of<FireProv>(context, listen: true);
+
+    TimeOfDay eTime = TimeOfDay.now();
+
     return SafeArea(
         child: Scaffold(
       backgroundColor: Globals.bgDarkBlue,
@@ -118,8 +131,19 @@ class _CalendarState extends State<Calendar> {
           context: context,
           builder: (context) => AlertDialog(
             title: const Text("Add event on this day"),
-            content: TextFormField(
-              controller: _eventController,
+            content: Column(
+              children: [
+                TextFormField(
+                  controller: _eTitleC,
+                  decoration: const InputDecoration(hintText: 'Event Name'),
+                ),
+                ElevatedButton(
+                    child: Text(eTime.toString()),
+                    onPressed: () async {
+                      eTime = (await showTimePicker(
+                          context: context, initialTime: eTime))!;
+                    }),
+              ],
             ),
             actions: [
               TextButton(
@@ -128,20 +152,23 @@ class _CalendarState extends State<Calendar> {
               ),
               TextButton(
                 onPressed: () {
-                  if (_eventController.text.isEmpty) {
+                  if (_eTitleC.text.isEmpty) {
                   } else {
                     if (selectedEvents[selectedDay] != null) {
+                      // print(_eTitleC.text);
+                      // print(selectedDay);
                       selectedEvents[selectedDay]!.add(
-                        Event(title: _eventController.text),
+                        Event(title: _eTitleC.text),
                       );
                     } else {
                       selectedEvents[selectedDay] = [
-                        Event(title: _eventController.text),
+                        Event(title: _eTitleC.text),
                       ];
                     }
+                    fireProv.addEvent(_eTitleC.text, selectedDay, eTime.toString());
                   }
                   Navigator.pop(context);
-                  _eventController.clear();
+                  _eDescriptionC.clear();
                   setState(() {});
                   return;
                 },

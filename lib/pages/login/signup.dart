@@ -26,7 +26,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var themeProv = Provider.of<ThemeProv>(context, listen: true);
+    var themeProv = Provider.of<ThemeProv>(context, listen: true);
     var fireProv = Provider.of<FireProv>(context, listen: true);
 
     return Scaffold(
