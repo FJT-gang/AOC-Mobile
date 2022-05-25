@@ -22,12 +22,26 @@ class FireProv extends ChangeNotifier {
 
   void setUserData(String name, String email) {
     userId = FirebaseAuth.instance.currentUser;
+    userName = name;
     inst.collection('users').doc(userId!.uid).set({
       userId!.uid: {
         'name': name,
         'email': email,
       }
     });
+  }
+
+  void addEvent(
+      String title, DateTime day, 
+      String startTime
+      ) {
+    inst.collection('calendar').add({title: {
+      'title': title,
+      'user': userName,
+      'creationDate': DateTime.now(),
+      'day': day,
+      'startTime': startTime,
+    }});
   }
 
   // void changeShoe(afstand, naam) {
