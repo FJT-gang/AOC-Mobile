@@ -105,18 +105,52 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.grey,
                             child: Image.asset('assets/banner_image.jpg'),
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15, top: 140),
-                              child: CircleAvatar(
-                                radius: profileHeight / 2,
-                                backgroundColor: Colors.grey.shade800,
-                                backgroundImage: const AssetImage(
-                                    'assets/profile_image.jpeg'),
+                          Row(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 15, top: 140),
+                                  child: CircleAvatar(
+                                    radius: profileHeight / 2,
+                                    backgroundColor: Colors.grey.shade800,
+                                    backgroundImage: const AssetImage(
+                                        'assets/profile_image.jpeg'),
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(width: 18),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 240),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: Text(
+                                        userName,
+                                        style: TextStyle(
+                                          fontSize: 45,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: <Shadow>[
+                                            Shadow(
+                                              offset: Offset(2, 2),
+                                              blurRadius: 25,
+                                              color: Color.fromARGB(
+                                                  255, 46, 46, 46),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    IconT(
+                                        text: email,
+                                        icon: const Icon(Icons.email_outlined)),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -144,7 +178,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                     ],
                   ),
-                  
                 ],
               ),
             ),
@@ -152,15 +185,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       )),
-    );
-  }
-
-  Widget buildTop() {
-    final bottom = profileHeight / 2;
-    final top = coverHeight - profileHeight / 2;
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.centerLeft,
     );
   }
 }
@@ -172,8 +196,12 @@ class IconT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [icon, Text(text)]);
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      icon,
+      SizedBox(
+        width: 5,
+      ),
+      Text(text)
+    ]);
   }
 }
