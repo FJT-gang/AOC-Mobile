@@ -5,10 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:aoc/widgets/themeWidget.dart';
 // Firebase
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
 import 'package:aoc/providers/fireprov.dart';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -20,6 +25,38 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final double coverHeight = 280;
   final double profileHeight = 170;
+
+  // Image picker
+  File? image;
+
+  List<Widget> images = [];
+
+  Future pickImage() async {
+    try {
+      final pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      pickedImage ?? '';
+      if (pickedImage == null) {
+        return;
+      } else {
+        final imageTemp = File(pickedImage.path);
+        setState(() => {
+          images.add(
+            Image.file(
+              imageTemp,
+              width: 300,
+              height: 400,
+          )),
+          images.add(
+            SizedBox(height: 20),
+          )
+          
+          });
+      }
+    } on PlatformException catch (e) {
+      print('Failed to get image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       // print(e.data()[fireProv.userId!.uid].toString());
     });
-    // @override
-    // void initState() {
-    //   super.initState();
-    // }
 
-    // print('testttt');
-    // print(fireProv.userId);
+
     return SafeArea(
       child: Scaffold(
           body: Container(
@@ -124,18 +156,32 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  Container(
-                    child: Text('hey'),
-                    color: Colors.amber,
-                  )
+                  Column(
+                    children: [
+                      IconT(text: userName, icon: const Icon(Icons.person)),
+                      IconT(
+                          text: email, icon: const Icon(Icons.email_outlined)),
+                          Text('Welcome $userName'),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 12, top: 8),
+                        child: ThemeSelector(),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          pickImage();
+                        },
+                      child: const Text('Select Image')),
+                      SingleChildScrollView(
+                            child: Column(
+                              children: images,
+                            )
+                          ),
+                    ],
+                  ),
                 ],
               ),
             ),
-            Text('Welcome $userName'),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12, top: 8),
-              child: const ThemeSelector(),
-            ),
+
           ],
         ),
       )),
