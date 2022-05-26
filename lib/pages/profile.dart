@@ -73,46 +73,61 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.grey,
                             child: Image.asset('assets/banner_image.jpg'),
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15, top: 140),
-                              child: CircleAvatar(
-                                radius: profileHeight / 2,
-                                backgroundColor: Colors.grey.shade800,
-                                backgroundImage: const AssetImage(
-                                    'assets/profile_image.jpeg'),
+                          Row(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 15, top: 140),
+                                  child: CircleAvatar(
+                                    radius: profileHeight / 2,
+                                    backgroundColor: Colors.grey.shade800,
+                                    backgroundImage: const AssetImage(
+                                        'assets/profile_image.jpeg'),
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(width: 18),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 240),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: Text(
+                                        userName,
+                                        style: TextStyle(
+                                          fontSize: 45,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: <Shadow>[
+                                            Shadow(
+                                              offset: Offset(2, 2),
+                                              blurRadius: 25,
+                                              color: Color.fromARGB(
+                                                  255, 46, 46, 46),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    IconT(
+                                        text: email,
+                                        icon: const Icon(Icons.email_outlined)),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      SizedBox(width: 185),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Text(
-                              userName,
-                              style: TextStyle(
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          IconT(
-                              text: email,
-                              icon: const Icon(Icons.email_outlined)),
-                        ],
-                      ),
-                    ],
-                  ),
+                  Container(
+                    child: Text('hey'),
+                    color: Colors.amber,
+                  )
                 ],
               ),
             ),
