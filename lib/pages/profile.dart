@@ -90,11 +90,27 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  Column(
+                  Row(
                     children: [
-                      IconT(text: userName, icon: const Icon(Icons.person)),
-                      IconT(
-                          text: email, icon: const Icon(Icons.email_outlined)),
+                      SizedBox(width: 185),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5),
+                            child: Text(
+                              userName,
+                              style: TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          IconT(
+                              text: email,
+                              icon: const Icon(Icons.email_outlined)),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -110,15 +126,6 @@ class _ProfilePageState extends State<ProfilePage> {
       )),
     );
   }
-
-  Widget buildTop() {
-    final bottom = profileHeight / 2;
-    final top = coverHeight - profileHeight / 2;
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.centerLeft,
-    );
-  }
 }
 
 class IconT extends StatelessWidget {
@@ -128,8 +135,12 @@ class IconT extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [icon, Text(text)]);
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      icon,
+      SizedBox(
+        width: 5,
+      ),
+      Text(text)
+    ]);
   }
 }
