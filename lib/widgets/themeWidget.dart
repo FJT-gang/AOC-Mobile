@@ -17,13 +17,14 @@ class _ThemeSelectorState extends State<ThemeSelector> {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
     return Container(
       decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(width: 1.0, color: Color(0xFF000000)),
-          left: BorderSide(width: 1.0, color: Color(0xFF000000)),
-          right: BorderSide(width: 1.0, color: Color(0xFF000000)),
-          bottom: BorderSide(width: 1.0, color: Color(0xFF000000)),
-        )
-      ),
+          border: Border(
+        top: BorderSide(width: 1.0, color: Color.fromARGB(255, 255, 255, 255)),
+        left: BorderSide(width: 1.0, color: Color.fromARGB(255, 255, 255, 255)),
+        right:
+            BorderSide(width: 1.0, color: Color.fromARGB(255, 255, 255, 255)),
+        bottom:
+            BorderSide(width: 1.0, color: Color.fromARGB(255, 255, 255, 255)),
+      )),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: PopupMenuButton(
@@ -35,22 +36,21 @@ class _ThemeSelectorState extends State<ThemeSelector> {
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Wrap(
-              
               children: const [
                 Text(
                   'Themas',
                   style: TextStyle(
-                  color: Colors.black,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
                 Icon(
                   Icons.arrow_downward_rounded,
                   size: 17.0,
-                  )
+                  color: Colors.white,
+                )
               ],
             ),
           ),
-          
           itemBuilder: (context) => [
             const PopupMenuItem(
                 value: 'blue',

@@ -1,6 +1,7 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -155,6 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       child: Text(
                                         userName,
                                         style: const TextStyle(
+
                                           color: Colors.white,
                                           fontSize: 45,
                                           fontWeight: FontWeight.bold,
@@ -170,7 +172,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                     IconT(
                                         text: email,
-                                        icon: const Icon(Icons.email_outlined)),
+                                        icon: const Icon(
+                                          Icons.email_outlined,
+                                          color: Colors.white,
+                                        )),
                                   ],
                                 ),
                               ),
@@ -180,6 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
+
                   Column(
                     children: [
                       IconT(text: userName, icon: const Icon(Icons.person)),
@@ -204,6 +210,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
+
           ],
         ),
       )),
@@ -223,7 +230,10 @@ class IconT extends StatelessWidget {
       const SizedBox(
         width: 5,
       ),
-      Text(text)
+      Text(
+        text,
+        style: TextStyle(color: Colors.white),
+      )
     ]);
   }
 }
