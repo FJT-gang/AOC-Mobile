@@ -1,5 +1,7 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -131,6 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       child: Text(
                                         userName,
                                         style: TextStyle(
+                                          color: Colors.white,
                                           fontSize: 45,
                                           fontWeight: FontWeight.bold,
                                           shadows: <Shadow>[
@@ -146,7 +149,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                     IconT(
                                         text: email,
-                                        icon: const Icon(Icons.email_outlined)),
+                                        icon: const Icon(
+                                          Icons.email_outlined,
+                                          color: Colors.white,
+                                        )),
                                   ],
                                 ),
                               ),
@@ -156,30 +162,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      IconT(text: userName, icon: const Icon(Icons.person)),
-                      IconT(
-                          text: email, icon: const Icon(Icons.email_outlined)),
-                          Text('Welcome $userName'),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 12, top: 8),
-                        child: ThemeSelector(),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          pickImage();
-                        },
-                      child: const Text('Select Image')),
-                      SingleChildScrollView(
-                            child: Column(
-                              children: images,
-                            )
-                          ),
-                    ],
-                  ),
+                  Container(child: Text('hey'))
                 ],
               ),
+            ),
+            Text(
+              'Welcome $userName',
+              style: TextStyle(color: Colors.white),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12, top: 8),
+              child: const ThemeSelector(),
             ),
 
           ],
@@ -201,7 +194,10 @@ class IconT extends StatelessWidget {
       SizedBox(
         width: 5,
       ),
-      Text(text)
+      Text(
+        text,
+        style: TextStyle(color: Colors.white),
+      )
     ]);
   }
 }
