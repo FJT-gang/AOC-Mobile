@@ -36,6 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
   XFile? pickedImage;
   bool ran = false;
 
+
   ImgServ imgServ = new ImgServ();
   // Get Image
 
@@ -121,6 +122,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.grey,
                             child: Image.asset('assets/banner_image.jpg'),
                           ),
+                          const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: ThemeSelector(),
+                          ),
                           Row(
                             children: [
                               Align(
@@ -176,27 +181,77 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      IconT(text: userName, icon: const Icon(Icons.person)),
-                      IconT(
-                          text: email, icon: const Icon(Icons.email_outlined)),
-                      Text('Welcome $userName'),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 12, top: 8),
-                        child: ThemeSelector(),
+                  Container(
+                    child: Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(25),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Bio:',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                            Text(
+                              'I like ... ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                            ),
+                          ],
+                        ),
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            pickImage();
-                          },
-                          child: const Text('Select Image')),
-                      SingleChildScrollView(
-                          child: Column(
-                        children: imageProv.images,
-                      )),
-                    ],
-                  ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print('img1');
+                                      },
+                                      child: Image.network(
+                                        'https://images.pexels.com/photos/10141148/pexels-photo-10141148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                        height: 100,
+                                        width: 150,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )),
+                                Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print('img2');
+                                      },
+                                      child: Image.network(
+                                        'https://images.pexels.com/photos/10141145/pexels-photo-10141145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                        height: 100,
+                                        width: 150,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ))
+                              ],
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    print('img3');
+                                  },
+                                  child: Image.network(
+                                    'https://images.pexels.com/photos/10141163/pexels-photo-10141163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                    height: 215,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ))
+                          ],
+                        ),
+                      )
+                    ]),
+                  )
                 ],
               ),
             ),
