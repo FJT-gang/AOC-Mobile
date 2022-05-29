@@ -1,13 +1,14 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
 // Firebase
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
@@ -28,8 +29,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final double coverHeight = 280;
   final double profileHeight = 170;
 
-  // Image picker
   File? image;
+  XFile? pickedImage;
 
   List<Widget> images = [];
 
@@ -58,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
@@ -77,6 +79,55 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       // print(e.data()[fireProv.userId!.uid].toString());
     });
+
+
+    // Get images
+    // Future getImages() async {
+    //   const path = '/users/pSGHi6h0xOZIwOFFlhFU1EKWH403';
+    //   final ref = FirebaseStorage.instance.ref().child(path);
+
+    //   try {
+    //     const oneMegabyte = 1024 * 1024;
+
+    //   }
+    // }
+
+    // upload image
+    Future uploadImage(String type) async {
+      final path = '$type/${pickedImage!.name}';
+
+      // reference waar afbeelding opgeslagen moet worden
+      final ref = FirebaseStorage.instance.ref().child(path);
+      // opslaan van afbeelding mbv ref
+      ref.putFile(image!);
+    }
+    // Pick image
+    Future pickImage() async {
+      try {
+        pickedImage =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        pickedImage ?? '';
+        if (pickedImage == null) {
+          return;
+        } else {
+          image = File(pickedImage!.path);
+          setState(() => {
+                images.add(Image.file(
+                  image!,
+                  width: 300,
+                  height: 400,
+                )),
+                images.add(
+                  const SizedBox(height: 20),
+                )
+              });
+
+          uploadImage('users/$userId');
+        }
+      } on PlatformException catch (e) {
+        print('Failed to get image: $e');
+      }
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -123,27 +174,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 18),
+                              const SizedBox(width: 18),
                               Padding(
-                                padding: const EdgeInsets.only(top: 240),
+                                padding: const EdgeInsets.only(top: 260),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    const SizedBox(height: 10),
                                     Padding(
                                       padding: const EdgeInsets.only(bottom: 5),
                                       child: Text(
                                         userName,
-                                        style: TextStyle(
+                                        style: const TextStyle(
+
                                           color: Colors.white,
                                           fontSize: 45,
                                           fontWeight: FontWeight.bold,
                                           shadows: <Shadow>[
-                                            Shadow(
-                                              offset: Offset(2, 2),
-                                              blurRadius: 25,
-                                              color: Color.fromARGB(
-                                                  255, 46, 46, 46),
-                                            ),
+                                            // Shadow(
+                                            //   offset: Offset(2, 2),
+                                            //   blurRadius: 25,
+                                            //   color: Colors.white,
+                                            // ),
                                           ],
                                         ),
                                       ),
@@ -237,6 +289,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
+
           ],
         ),
       )),
@@ -253,7 +306,7 @@ class IconT extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       icon,
-      SizedBox(
+      const SizedBox(
         width: 5,
       ),
       Text(
