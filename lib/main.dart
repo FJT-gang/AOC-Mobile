@@ -1,3 +1,6 @@
+// <uses-permission android:name="android.permission.INTERNET"/>
+// flutter build apk --build-name=1.0.1 --build-number=2
+
 import 'package:aoc/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +31,7 @@ Future<void> main() async {
     ChangeNotifierProvider(create: (context) => FireProv()),
     StreamProvider<List>(
       create: (context) => FireProv().getCollections,
-      initialData: [],
+      initialData: const [],
     ),
   ], child: const MyApp()));
 }
