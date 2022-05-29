@@ -43,17 +43,15 @@ class _ProfilePageState extends State<ProfilePage> {
       } else {
         final imageTemp = File(pickedImage.path);
         setState(() => {
-          images.add(
-            Image.file(
-              imageTemp,
-              width: 300,
-              height: 400,
-          )),
-          images.add(
-            SizedBox(height: 20),
-          )
-          
-          });
+              images.add(Image.file(
+                imageTemp,
+                width: 300,
+                height: 400,
+              )),
+              images.add(
+                SizedBox(height: 20),
+              )
+            });
       }
     } on PlatformException catch (e) {
       print('Failed to get image: $e');
@@ -80,7 +78,6 @@ class _ProfilePageState extends State<ProfilePage> {
       // print(e.data()[fireProv.userId!.uid].toString());
     });
 
-
     return SafeArea(
       child: Scaffold(
           body: Container(
@@ -106,6 +103,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           Container(
                             color: Colors.grey,
                             child: Image.asset('assets/banner_image.jpg'),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: ThemeSelector(),
                           ),
                           Row(
                             children: [
@@ -162,19 +163,80 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  Container(child: Text('hey'))
+                  Container(
+                    child: Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(25),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Bio:',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                            Text(
+                              'I like ... ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print('img1');
+                                      },
+                                      child: Image.network(
+                                        'https://images.pexels.com/photos/10141148/pexels-photo-10141148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                        height: 100,
+                                        width: 150,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )),
+                                Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print('img2');
+                                      },
+                                      child: Image.network(
+                                        'https://images.pexels.com/photos/10141145/pexels-photo-10141145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                        height: 100,
+                                        width: 150,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ))
+                              ],
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    print('img3');
+                                  },
+                                  child: Image.network(
+                                    'https://images.pexels.com/photos/10141163/pexels-photo-10141163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                    height: 215,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ))
+                          ],
+                        ),
+                      )
+                    ]),
+                  )
                 ],
               ),
             ),
-            Text(
-              'Welcome $userName',
-              style: TextStyle(color: Colors.white),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12, top: 8),
-              child: const ThemeSelector(),
-            ),
-
           ],
         ),
       )),
