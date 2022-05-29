@@ -2,6 +2,7 @@
 // flutter build apk --build-name=1.0.1 --build-number=2
 
 import 'package:aoc/pages/profile.dart';
+import 'package:aoc/providers/imageprov.dart';
 import 'package:flutter/material.dart';
 
 // Pages
@@ -33,6 +34,7 @@ Future<void> main() async {
       create: (context) => FireProv().getCollections,
       initialData: const [],
     ),
+    ChangeNotifierProvider(create: (context) => ImageProv())
   ], child: const MyApp()));
 }
 

@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -13,8 +14,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
 import 'package:aoc/providers/fireprov.dart';
+import 'package:aoc/providers/imageprov.dart';
+// Serv
+import 'package:aoc/services/imgserv.dart';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -31,72 +34,61 @@ class _ProfilePageState extends State<ProfilePage> {
 
   File? image;
   XFile? pickedImage;
+  bool ran = false;
 
-  List<Widget> images = [];
-
+  ImgServ imgServ = new ImgServ();
+  // Get Image
 
   @override
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
     var fireProv = Provider.of<FireProv>(context, listen: true);
     var fireStream = Provider.of<List>(context, listen: true);
+    var imageProv = Provider.of<ImageProv>(context, listen: true);
 
     var userId = FirebaseAuth.instance.currentUser!.uid;
 
     late String userName = '';
     String email = ' ';
 
-    fireStream.forEach((e) {
+    getRef(path) {
+      return FirebaseStorage.instance.ref().child(path);
+    }
+
+    Future getImages() async {
+      imageProv.reset();
+      ran = true;
+      final imgSourceList = await imgServ.getImages();
+      for (var e in imgSourceList) {
+        imageProv.sImages(Image.network(e));
+        imageProv.sImages(const SizedBox(height: 200));
+      }
+
+      setState(() {});
+    }
+
+    !ran ? getImages() : '';
+
+    for (var e in fireStream) {
       if (userId == e.data().keys.toList().first) {
         userName = e.data()[userId]['name'];
         email = e.data()[userId]['email'];
-        setState(() {});
+        // setState(() {});
       }
       // print(e.data()[fireProv.userId!.uid].toString());
-    });
-
-    // Get images
-    // Future getImages() async {
-    //   const path = '/users/pSGHi6h0xOZIwOFFlhFU1EKWH403';
-    //   final ref = FirebaseStorage.instance.ref().child(path);
-
-    //   try {
-    //     const oneMegabyte = 1024 * 1024;
-
-    //   }
-    // }
-
-    // upload image
-    Future uploadImage(String type) async {
-      final path = '$type/${pickedImage!.name}';
-
-      // reference waar afbeelding opgeslagen moet worden
-      final ref = FirebaseStorage.instance.ref().child(path);
-      // opslaan van afbeelding mbv ref
-      ref.putFile(image!);
     }
-    // Pick image
+
     Future pickImage() async {
       try {
         pickedImage =
             await ImagePicker().pickImage(source: ImageSource.gallery);
-        pickedImage ?? '';
+        pickedImage;
         if (pickedImage == null) {
           return;
         } else {
-          image = File(pickedImage!.path);
-          setState(() => {
-                images.add(Image.file(
-                  image!,
-                  width: 300,
-                  height: 400,
-                )),
-                images.add(
-                  const SizedBox(height: 20),
-                )
-              });
-
-          uploadImage('users/$userId');
+          imgServ
+              .uploadImage('users/$userId', pickedImage!);
+          getImages();
         }
       } on PlatformException catch (e) {
         print('Failed to get image: $e');
@@ -156,7 +148,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                       child: Text(
                                         userName,
                                         style: const TextStyle(
-
                                           color: Colors.white,
                                           fontSize: 45,
                                           fontWeight: FontWeight.bold,
@@ -185,7 +176,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-
                   Column(
                     children: [
                       IconT(text: userName, icon: const Icon(Icons.person)),
@@ -203,14 +193,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: const Text('Select Image')),
                       SingleChildScrollView(
                           child: Column(
-                        children: images,
+                        children: imageProv.images,
                       )),
                     ],
                   ),
                 ],
               ),
             ),
-
           ],
         ),
       )),
