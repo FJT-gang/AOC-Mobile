@@ -36,14 +36,21 @@ class _ProfilePageState extends State<ProfilePage> {
   XFile? pickedImage;
   bool ran = false;
 
+  ImgServ imgServ = ImgServ();
 
-  ImgServ imgServ = new ImgServ();
-  // Get Image
+  // Images
+  String imgTl =
+      'https://images.pexels.com/photos/10141148/pexels-photo-10141148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+  String imgBl =
+      'https://images.pexels.com/photos/10141145/pexels-photo-10141145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+  String imgR =
+      'https://images.pexels.com/photos/10141163/pexels-photo-10141163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+  ImageProvider imgPf = const AssetImage('assets/profile_image.jpeg');
+  Widget imgBanner = Image.asset('assets/banner_image.jpg');
 
   @override
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
-    var fireProv = Provider.of<FireProv>(context, listen: true);
     var fireStream = Provider.of<List>(context, listen: true);
     var imageProv = Provider.of<ImageProv>(context, listen: true);
 
@@ -51,6 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     late String userName = '';
     String email = ' ';
+
 
     getRef(path) {
       return FirebaseStorage.instance.ref().child(path);
@@ -68,7 +76,33 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {});
     }
 
-    !ran ? getImages() : '';
+    void setImages() async {
+      ran = true;
+      imgTl = await imgServ.getImage('tl');
+      imgBl = await imgServ.getImage('bl');
+      imgR = await imgServ.getImage('r');
+      imgPf = NetworkImage(await imgServ.getImage('imgPf'));
+      imgBanner = Image.network(await imgServ.getImage('imgBanner'));
+      setState(() {});
+    }
+
+    ran ? '' : setImages();
+
+    Future pickImage(String location) async {
+      try {
+        pickedImage =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        pickedImage;
+        if (pickedImage == null) {
+          return;
+        } else {
+          imgServ.uploadImage('users/$userId/$location', pickedImage!);
+          getImages();
+        }
+      } on PlatformException catch (e) {
+        print('Failed to get image: $e');
+      }
+    }
 
     for (var e in fireStream) {
       if (userId == e.data().keys.toList().first) {
@@ -77,23 +111,6 @@ class _ProfilePageState extends State<ProfilePage> {
         // setState(() {});
       }
       // print(e.data()[fireProv.userId!.uid].toString());
-    }
-
-    Future pickImage() async {
-      try {
-        pickedImage =
-            await ImagePicker().pickImage(source: ImageSource.gallery);
-        pickedImage;
-        if (pickedImage == null) {
-          return;
-        } else {
-          imgServ
-              .uploadImage('users/$userId', pickedImage!);
-          getImages();
-        }
-      } on PlatformException catch (e) {
-        print('Failed to get image: $e');
-      }
     }
 
     return SafeArea(
@@ -120,7 +137,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Container(
                             color: Colors.grey,
-                            child: Image.asset('assets/banner_image.jpg'),
+                            child: GestureDetector(
+                              onTap: () {
+                                pickImage('imgBanner');
+                              },
+                              child: imgBanner,
+                              ),
                           ),
                           const Padding(
                             padding: EdgeInsets.all(10),
@@ -133,11 +155,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.only(left: 15, top: 140),
-                                  child: CircleAvatar(
-                                    radius: profileHeight / 2,
-                                    backgroundColor: Colors.grey.shade800,
-                                    backgroundImage: const AssetImage(
-                                        'assets/profile_image.jpeg'),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      pickImage('imgPf');
+                                    },
+                                    child: CircleAvatar(
+                                      radius: profileHeight / 2,
+                                      backgroundColor: Colors.grey.shade800,
+                                      backgroundImage: imgPf,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -186,7 +212,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Padding(
                         padding: const EdgeInsets.all(25),
                         child: Column(
-                          children: [
+                          children: const [
                             Text(
                               'Bio:',
                               style:
@@ -200,55 +226,55 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        print('img1');
-                                      },
-                                      child: Image.network(
-                                        'https://images.pexels.com/photos/10141148/pexels-photo-10141148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                                        height: 100,
-                                        width: 150,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )),
-                                Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        print('img2');
-                                      },
-                                      child: Image.network(
-                                        'https://images.pexels.com/photos/10141145/pexels-photo-10141145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                                        height: 100,
-                                        width: 150,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ))
-                              ],
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: GestureDetector(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print('img1');
+                                      pickImage('tl');
+                                    },
+                                    child: Image.network(
+                                      imgTl,
+                                      height: 100,
+                                      width: 150,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )),
+                              Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print('img2');
+                                      pickImage('bl');
+                                    },
+                                    child: Image.network(
+                                      imgBl,
+                                      height: 100,
+                                      width: 150,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ))
+                            ],
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: GestureDetector(
                                   onTap: () {
                                     print('img3');
+                                    pickImage('r');
                                   },
                                   child: Image.network(
-                                    'https://images.pexels.com/photos/10141163/pexels-photo-10141163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                    imgR,
                                     height: 215,
                                     width: 150,
                                     fit: BoxFit.cover,
-                                  ),
-                                ))
-                          ],
-                        ),
+                                  )))
+                        ],
                       )
                     ]),
                   )
