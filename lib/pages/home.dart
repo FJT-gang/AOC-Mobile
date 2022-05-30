@@ -16,8 +16,6 @@ class Home extends StatelessWidget {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
     var fireProv = Provider.of<FireProv>(context, listen: true);
 
-
-
     return SafeArea(
       child: Scaffold(
           backgroundColor: themeProv.bgColor,
@@ -28,9 +26,8 @@ class Home extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                       border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black,
-                  ))),
+                    bottom: BorderSide(color: Colors.white, width: 2),
+                  )),
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Row(
@@ -40,9 +37,7 @@ class Home extends StatelessWidget {
                         SizedBox(width: 60),
                         Text(
                           'Home',
-                          style: TextStyle(
-                            fontSize: 40,
-                          ),
+                          style: TextStyle(fontSize: 40, color: Colors.white),
                         )
                       ],
                     ),

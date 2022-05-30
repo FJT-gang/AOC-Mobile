@@ -59,7 +59,6 @@ class _ProfilePageState extends State<ProfilePage> {
     late String userName = '';
     String email = ' ';
 
-
     getRef(path) {
       return FirebaseStorage.instance.ref().child(path);
     }
@@ -142,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 pickImage('imgBanner');
                               },
                               child: imgBanner,
-                              ),
+                            ),
                           ),
                           const Padding(
                             padding: EdgeInsets.all(10),
@@ -210,20 +209,23 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     child: Column(children: [
                       Padding(
-                        padding: const EdgeInsets.all(25),
-                        child: Column(
-                          children: const [
-                            Text(
-                              'Bio:',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                            Text(
-                              'I like ... ',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                            ),
-                          ],
+                        padding: const EdgeInsets.fromLTRB(38, 25, 0, 25),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            children: const [
+                              Text(
+                                'Bio:    ',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                              Text(
+                                'I like ... ',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Row(
