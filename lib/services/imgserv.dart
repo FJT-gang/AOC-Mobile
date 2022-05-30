@@ -9,32 +9,33 @@ class ImgServ {
   List imgList = [];
 
   getRef(path) {
-      return FirebaseStorage.instance.ref().child(path);
+    return FirebaseStorage.instance.ref().child(path);
   }
 
   // Get images
   Future<List> getImages() async {
-    const path =
-        'users/pSGHi6h0xOZIwOFFlhFU1EKWH403/image_picker3221195033689746631.webp';
-    const testPath = 'users/pSGHi6h0xOZIwOFFlhFU1EKWH403/';
+    const String path = 'users/pSGHi6h0xOZIwOFFlhFU1EKWH403/';
 
     ListResult testlist =
-        await FirebaseStorage.instance.ref().child(testPath).listAll();
+        await FirebaseStorage.instance.ref().child(path).listAll();
     for (var i in testlist.items) {
-      final imageUrl =
-            await getRef(i.fullPath).getDownloadURL();
+      final imageUrl = await getRef(i.fullPath).getDownloadURL();
       imgList.add(imageUrl);
     }
     return imgList;
   }
 
+  Future getImage(String imgType) async {
+    final String path = 'users/pSGHi6h0xOZIwOFFlhFU1EKWH403/$imgType';
+    final Reference imageRef = FirebaseStorage.instance.ref().child(path);
+    final imgUrl = await getRef(imageRef.fullPath).getDownloadURL();
+    return imgUrl;
+  }
 
   // Upload images
-  Future uploadImage(String type, XFile pickedImage) async {
-      final path = '$type/${pickedImage.name}';
-
-      // reference waar afbeelding opgeslagen moet worden
-      // opslaan van afbeelding mbv ref
-      getRef(path).putFile(File(pickedImage.path));
-    }
+  Future uploadImage(String path, XFile pickedImage) async {
+    // reference waar afbeelding opgeslagen moet worden
+    // opslaan van afbeelding mbv ref
+    getRef(path).putFile(File(pickedImage.path));
+  }
 }
