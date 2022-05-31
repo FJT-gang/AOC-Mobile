@@ -25,7 +25,7 @@ class SignInPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Globals.bgLightBlue,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -48,7 +48,7 @@ class SignInPage extends StatelessWidget {
                       placeholder: "Enter Email",
                       controller: emailController,
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
                     NewInput(
                       placeholder: "Enter Password",
                       controller: passwordController,
@@ -63,8 +63,8 @@ class SignInPage extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text,
                               )
-                              .then(
-                                  (_) => Navigator.pushReplacementNamed(context, '/home'));
+                              .then((_) => Navigator.pushReplacementNamed(
+                                  context, '/home'));
                         })
                   ],
                 ),

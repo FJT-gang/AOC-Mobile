@@ -31,7 +31,7 @@ class SignUpPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Globals.bgLightBlue,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -70,7 +70,7 @@ class SignUpPage extends StatelessWidget {
                     LoginWidget(
                       text: 'Sign Up',
                       pressed: () {
-                        RegExp regExp =  RegExp(
+                        RegExp regExp = RegExp(
                           r"^[a-zA-Z]{2,10}$",
                           caseSensitive: false,
                           multiLine: false,
@@ -81,19 +81,20 @@ class SignUpPage extends StatelessWidget {
                           showDialog(
                               context: context,
                               builder: (context) => Alert(
-                                title: 'Unvalid Username', 
-                                content: 'Please enter a name between 2 and 10 letters.',)
-                                );
+                                    title: 'Unvalid Username',
+                                    content:
+                                        'Please enter a name between 2 and 10 letters.',
+                                  ));
                         } else {
                           FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                                 email: emailController.text,
                                 password: passwordController.text,
                               )
-                              .then((_) =>  fireProv.setUserData(
-                                usernameController.text, 
-                                emailController.text,
-                                ))
+                              .then((_) => fireProv.setUserData(
+                                    usernameController.text,
+                                    emailController.text,
+                                  ))
                               .then((_) => Navigator.pushReplacementNamed(
                                   context, '/home'));
                         }
@@ -146,20 +147,20 @@ class NewInput extends StatelessWidget {
 class Alert extends StatelessWidget {
   late String title;
   late String content;
-  Alert({ Key? key , required this.title, required this.content}) : super(key: key);
+  Alert({Key? key, required this.title, required this.content})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(title),
-      content: Text(
-          content),
-            actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
+      content: Text(content),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
     );
   }
 }
