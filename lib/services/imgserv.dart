@@ -36,6 +36,7 @@ class ImgServ {
   Future uploadImage(String path, XFile pickedImage) async {
     // reference waar afbeelding opgeslagen moet worden
     // opslaan van afbeelding mbv ref
-    getRef(path).putFile(File(pickedImage.path));
+    await getRef(path).putFile(File(pickedImage.path));
+    return '';
   }
 }
