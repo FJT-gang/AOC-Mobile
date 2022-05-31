@@ -35,22 +35,24 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w600)),
                 const SizedBox(height: 340),
                 // SizedBox(
-                    // height: 300, child: Image.asset('assets/loginImg.png')),
-                Column(
-                  children: [
-                    const SizedBox(height: 2),
-                    LoginWidget(
-                        text: 'Sign Up',
-                        pressed: () {
-                          Navigator.pushNamed(context, '/signup');
-                        }),
-                    const SizedBox(height: 2),
-                    LoginWidget(
-                        text: 'Sign In',
-                        pressed: () {
-                          Navigator.pushNamed(context, '/signin');
-                        }),
-                  ],
+                // height: 300, child: Image.asset('assets/loginImg.png')),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 2),
+                      LoginWidget(
+                          text: 'Sign Up',
+                          pressed: () {
+                            Navigator.pushNamed(context, '/signup');
+                          }),
+                      const SizedBox(height: 2),
+                      LoginWidget(
+                          text: 'Sign In',
+                          pressed: () {
+                            Navigator.pushNamed(context, '/signin');
+                          }),
+                    ],
+                  ),
                 )
               ],
             ),
