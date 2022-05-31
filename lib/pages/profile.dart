@@ -95,8 +95,9 @@ class _ProfilePageState extends State<ProfilePage> {
         if (pickedImage == null) {
           return;
         } else {
-          imgServ.uploadImage('users/$userId/$location', pickedImage!);
-          getImages();
+          await imgServ.uploadImage(
+              'users/pSGHi6h0xOZIwOFFlhFU1EKWH403/$location', pickedImage!);
+          setImages();
         }
       } on PlatformException catch (e) {
         print('Failed to get image: $e');
