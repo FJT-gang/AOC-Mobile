@@ -47,11 +47,6 @@ class Home extends StatelessWidget {
                   children: [
                     const SizedBox(height: 20),
                     HomeCard(
-                        cardTitle: 'Calendar',
-                        imgSource: 'assets/calendarImg${themeProv.color}.jpg',
-                        route: '/calendar'),
-                    const SizedBox(height: 20),
-                    HomeCard(
                         cardTitle: 'Profile',
                         imgSource: 'assets/profileImg.jpg',
                         route: '/profile'),
