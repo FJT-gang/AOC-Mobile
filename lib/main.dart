@@ -51,8 +51,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-
-      initialRoute: '/login',
+      initialRoute: '/home',
 
       routes: {
         '/login': (context) => const LoginPage(),

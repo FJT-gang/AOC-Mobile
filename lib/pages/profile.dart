@@ -1,6 +1,7 @@
 //create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'dart:ui';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -144,9 +145,21 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: imgBanner,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(10),
-                            child: ThemeSelector(),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: ThemeSelector(),
+                              ),
+                              SizedBox(width: 225),
+                              IconButton(
+                                icon: Icon(Icons.chat),
+                                color: Colors.white,
+                                onPressed: () {
+                                  print('test');
+                                },
+                              ),
+                            ],
                           ),
                           Row(
                             children: [
@@ -167,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 18),
+                              const SizedBox(width: 12),
                               Padding(
                                 padding: const EdgeInsets.only(top: 260),
                                 child: Column(

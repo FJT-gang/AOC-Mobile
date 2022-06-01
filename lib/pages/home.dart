@@ -49,7 +49,8 @@ class Home extends StatelessWidget {
                     HomeCard(
                         cardTitle: 'Profile',
                         imgSource: 'assets/profileImg.jpg',
-                        route: '/profile')
+                        route: '/profile'),
+                    const SizedBox(height: 20),
                   ],
                 )
               ],
