@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 // Pages
 import 'package:aoc/pages/calendar.dart';
 import 'package:aoc/pages/home.dart';
+import 'package:aoc/pages/explore/explore.dart';
 import 'package:aoc/pages/login/login.dart';
 import 'package:aoc/pages/login/signup.dart';
 import 'package:aoc/pages/login/signIn.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const Home(),
         '/calendar': (context) => const Calendar(),
         '/profile': (context) => const ProfilePage(),
+        '/explore': (context) => const Explore(),
       },
     );
   }

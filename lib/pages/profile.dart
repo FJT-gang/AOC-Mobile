@@ -41,13 +41,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Images
   String imgTl =
-      'https://images.pexels.com/photos/10141148/pexels-photo-10141148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-  String imgBl =
-      'https://images.pexels.com/photos/10141145/pexels-photo-10141145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-  String imgR =
-      'https://images.pexels.com/photos/10141163/pexels-photo-10141163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-  ImageProvider imgPf = const AssetImage('assets/profile_image.jpeg');
-  Widget imgBanner = Image.asset('assets/banner_image.jpg');
+      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+  String imgBl = 'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+  String imgR = 'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+  String imgPf = 'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+  String imgBanner = 'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -78,13 +76,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
     void setImages() async {
       ran = true;
-      imgTl = await imgServ.getImage('tl');
-      imgBl = await imgServ.getImage('bl');
-      imgR = await imgServ.getImage('r');
-      imgPf = NetworkImage(await imgServ.getImage('imgPf'));
-      imgBanner = Image.network(await imgServ.getImage('imgBanner'));
+      imgTl = await imgServ.getImage('imgTl');
+      imgBl = await imgServ.getImage('imgBl');
+      imgR = await imgServ.getImage('imgR');
+      imgPf = await imgServ.getImage('imgPf');
+      imgBanner = await imgServ.getImage('imgBanner');
       setState(() {});
     }
+
+    imgServ.getImage('tl');
 
     ran ? '' : setImages();
 
@@ -96,14 +96,15 @@ class _ProfilePageState extends State<ProfilePage> {
         if (pickedImage == null) {
           return;
         } else {
-          await imgServ.uploadImage(
-              'users/pSGHi6h0xOZIwOFFlhFU1EKWH403/$location', pickedImage!);
+          await imgServ.uploadImage('users/$userId/$location', pickedImage!);
           setImages();
         }
       } on PlatformException catch (e) {
         print('Failed to get image: $e');
       }
     }
+
+    print('UserId: $userId');
 
     for (var e in fireStream) {
       if (userId == e.data().keys.toList().first) {
@@ -136,13 +137,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Stack(
                         children: [
-                          Container(
-                            color: Colors.grey,
-                            child: GestureDetector(
-                              onTap: () {
-                                pickImage('imgBanner');
-                              },
-                              child: imgBanner,
+                          FractionallySizedBox(
+                            widthFactor: 1,
+                            child: Container(
+                              color: Colors.grey,
+                              child: GestureDetector(
+                                onTap: () {
+                                  pickImage('imgBanner');
+                                },
+                                child: ConstrainedBox(
+                                    constraints: const BoxConstraints(
+                                      maxHeight: 270,
+                                    ),
+                                    child: Image.network(
+                                      imgBanner,
+                                      fit: BoxFit.cover,
+                                    )),
+                              ),
                             ),
                           ),
                           Row(
@@ -175,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     child: CircleAvatar(
                                       radius: profileHeight / 2,
                                       backgroundColor: Colors.grey.shade800,
-                                      backgroundImage: imgPf,
+                                      backgroundImage: NetworkImage(imgPf),
                                     ),
                                   ),
                                 ),
@@ -252,7 +263,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: GestureDetector(
                                     onTap: () {
                                       print('img1');
-                                      pickImage('tl');
+                                      pickImage('imgTl');
                                     },
                                     child: Image.network(
                                       imgTl,
@@ -266,7 +277,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: GestureDetector(
                                     onTap: () {
                                       print('img2');
-                                      pickImage('bl');
+                                      pickImage('imgBl');
                                     },
                                     child: Image.network(
                                       imgBl,
@@ -282,7 +293,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: GestureDetector(
                                   onTap: () {
                                     print('img3');
-                                    pickImage('r');
+                                    pickImage('imgR');
                                   },
                                   child: Image.network(
                                     imgR,
