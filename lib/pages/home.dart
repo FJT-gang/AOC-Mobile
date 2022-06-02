@@ -76,10 +76,12 @@ class Home extends StatelessWidget {
                     //     imgSource: 'assets/calendarImg${themeProv.color}.jpg',
                     //     route: '/calendar'),
                     // const SizedBox(height: 20),
+
                     HomeCard(
                         cardTitle: 'Profile',
                         imgSource: 'assets/profileImg.jpg',
-                        route: '/profile')
+                        route: '/profile'),
+                    const SizedBox(height: 20),
                   ],
                 )
               ],
