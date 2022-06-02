@@ -49,7 +49,12 @@ class Home extends StatelessWidget {
                     HomeCard(
                         cardTitle: 'Profile',
                         imgSource: 'assets/profileImg.jpg',
-                        route: '/profile')
+                        route: '/profile'),
+                    HomeCard(
+                      cardTitle: 'Explore',
+                      imgSource: 'assets/profileImg.jpg',
+                      route: '/explore',
+                    )
                   ],
                 )
               ],
