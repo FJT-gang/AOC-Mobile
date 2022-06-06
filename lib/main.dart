@@ -1,6 +1,7 @@
 // <uses-permission android:name="android.permission.INTERNET"/>
 // flutter build apk --build-name=1.0.1 --build-number=2
 
+import 'package:aoc/pages/chat.dart';
 import 'package:aoc/pages/profile.dart';
 import 'package:aoc/providers/imageprov.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +53,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "AOC Mobile",
-      initialRoute: '/home',
-
+      initialRoute: '/chat',
       routes: {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => SignUpPage(),
@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
         '/calendar': (context) => const Calendar(),
         '/profile': (context) => const ProfilePage(),
         '/explore': (context) => const Explore(),
+        '/chat': (context) => const Chat(),
       },
     );
   }
