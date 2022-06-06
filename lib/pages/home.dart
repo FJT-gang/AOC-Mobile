@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
-
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
-import 'package:aoc/providers/fireprov.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,7 +11,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
-    var fireProv = Provider.of<FireProv>(context, listen: true);
 
     return SafeArea(
       child: Scaffold(
@@ -49,7 +45,7 @@ class Home extends StatelessWidget {
                     Container(
                       width: 360,
                       height: 35,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           // border: Border.all(
                           //   color: Colors.black,
@@ -58,7 +54,7 @@ class Home extends StatelessWidget {
                       child: Row(
                         children: [
                           IconButton(
-                            padding: EdgeInsets.all(1),
+                            padding: const EdgeInsets.all(1),
                             onPressed: () {
                               showSearch(
                                   context: context,
@@ -66,7 +62,7 @@ class Home extends StatelessWidget {
                             },
                             icon: const Icon(Icons.search),
                           ),
-                          Text('Search'),
+                          const Text('Search'),
                         ],
                       ),
                     ),
@@ -79,14 +75,13 @@ class Home extends StatelessWidget {
 
                     HomeCard(
                         cardTitle: 'Profile',
-                        imgSource: 'assets/profileImg.jpg',
-                        route: '/profile'),
+                        icon: Icons.person,
+                        route: '/myprofile'),
                     HomeCard(
                       cardTitle: 'Explore',
-                      imgSource: 'assets/profileImg.jpg',
+                      icon: Icons.explore,
                       route: '/explore',
                     )
-
                   ],
                 )
               ],
@@ -98,46 +93,46 @@ class Home extends StatelessWidget {
 
 // WIDGETS
 
+// ignore: must_be_immutable
 class HomeCard extends StatelessWidget {
-  late String imgSource;
   late String cardTitle;
   late String route;
+  late IconData icon;
   HomeCard(
       {Key? key,
-      required this.imgSource,
       required this.cardTitle,
+      required this.icon,
       required this.route})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Ink.image(
-            image: AssetImage(imgSource),
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.6), BlendMode.dstATop),
-            height: 240,
-            width: 360,
-            fit: BoxFit.cover,
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, route);
-              },
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, route);
+      },
+      child: Card(
+        color: Colors.blue[400],
+          child: SizedBox(
+        height: 200,
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 140,
+              color: Colors.white,
             ),
-          ),
-          Text(cardTitle,
+            const SizedBox(width: 50),
+            Text(
+              cardTitle,
               style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-              ))
-        ],
-      ),
+                fontSize: 50,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      )),
     );
   }
 }
@@ -164,7 +159,7 @@ class CustomSearchDelegate extends SearchDelegate {
         onPressed: () {
           query = '';
         },
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
       ),
     ];
   }
@@ -176,7 +171,7 @@ class CustomSearchDelegate extends SearchDelegate {
       onPressed: () {
         close(context, null);
       },
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
     );
   }
 
