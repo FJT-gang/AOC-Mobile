@@ -1,14 +1,15 @@
 // <uses-permission android:name="android.permission.INTERNET"/>
-// flutter build apk --build-name=1.0.1 --build-number=2
-
+// flutter build apk --build-name=1.0.1 --build-number=4
 import 'package:aoc/pages/chat.dart';
 import 'package:aoc/pages/profile.dart';
+
 import 'package:aoc/providers/imageprov.dart';
 import 'package:flutter/material.dart';
 
 // Pages
-import 'package:aoc/pages/calendar.dart';
 import 'package:aoc/pages/home.dart';
+import 'package:aoc/pages/calendar.dart';
+import 'package:aoc/pages/myprofile.dart';
 import 'package:aoc/pages/explore/explore.dart';
 import 'package:aoc/pages/login/login.dart';
 import 'package:aoc/pages/login/signup.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
         '/signin': (context) => SignInPage(),
         '/home': (context) => const Home(),
         '/calendar': (context) => const Calendar(),
-        '/profile': (context) => const ProfilePage(),
+        '/myprofile': (context) => MyProfile(),
         '/explore': (context) => const Explore(),
         '/chat': (context) => const Chat(),
       },

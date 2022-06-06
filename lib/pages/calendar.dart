@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 // Provider
 import 'package:provider/provider.dart';
-import 'package:aoc/providers/themeprov.dart';
 import 'package:aoc/providers/fireprov.dart';
 
 // import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -46,7 +45,6 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    var themeProv = Provider.of<ThemeProv>(context, listen: true);
     var fireProv = Provider.of<FireProv>(context, listen: true);
 
     TimeOfDay eTime = TimeOfDay.now();

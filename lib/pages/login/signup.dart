@@ -13,7 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // Provider
 import 'package:provider/provider.dart';
-import 'package:aoc/providers/themeprov.dart';
 import 'package:aoc/providers/fireprov.dart';
 
 // ignore: must_be_immutable
@@ -26,7 +25,6 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var themeProv = Provider.of<ThemeProv>(context, listen: true);
     var fireProv = Provider.of<FireProv>(context, listen: true);
 
     return Scaffold(
@@ -77,7 +75,6 @@ class SignUpPage extends StatelessWidget {
                         );
 
                         if (!regExp.hasMatch(usernameController.text)) {
-                          print('unvalid username');
                           showDialog(
                               context: context,
                               builder: (context) => Alert(
@@ -144,6 +141,7 @@ class NewInput extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Alert extends StatelessWidget {
   late String title;
   late String content;

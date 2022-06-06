@@ -1,29 +1,22 @@
-//create a page to display the user's profile with the following information: name, profile picture, bio, and a list of the user's images.
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'dart:ui';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
 // Firebase
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 // Provider
 import 'package:provider/provider.dart';
 import 'package:aoc/providers/themeprov.dart';
-import 'package:aoc/providers/fireprov.dart';
-import 'package:aoc/providers/imageprov.dart';
 // Serv
 import 'package:aoc/services/imgserv.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+// ignore: must_be_immutable
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  late String userId;
+  late bool editRights;
+  ProfilePage({required this.editRights,required this.userId, Key? key}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -41,59 +34,53 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Images
   String imgTl =
-      'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg';
+      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
   String imgBl =
-      'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg';
+      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
   String imgR =
-      'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg';
+      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
   String imgPf =
-      'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg';
+      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
   String imgBanner =
-      'https://t3.ftcdn.net/jpg/01/09/00/64/360_F_109006426_388PagqielgjFTAMgW59jRaDmPJvSBUL.jpg';
+      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
 
   @override
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
     var fireStream = Provider.of<List>(context, listen: true);
-    var imageProv = Provider.of<ImageProv>(context, listen: true);
 
-    var userId = FirebaseAuth.instance.currentUser!.uid;
+    var userId = widget.userId;
 
     late String userName = '';
     String email = ' ';
 
-    getRef(path) {
-      return FirebaseStorage.instance.ref().child(path);
-    }
+    // Future getImages() async {
+    //   imageProv.reset();
+    //   ran = true;
+    //   final imgSourceList = await imgServ.getImages();
+    //   for (var e in imgSourceList) {
+    //     imageProv.sImages(Image.network(e));
+    //     imageProv.sImages(const SizedBox(height: 200));
+    //   }
 
-    Future getImages() async {
-      imageProv.reset();
-      ran = true;
-      final imgSourceList = await imgServ.getImages();
-      for (var e in imgSourceList) {
-        imageProv.sImages(Image.network(e));
-        imageProv.sImages(const SizedBox(height: 200));
-      }
-
-      setState(() {});
-    }
+    //   setState(() {});
+    // }
 
     void setImages() async {
       ran = true;
-      imgTl = await imgServ.getImage('imgTl');
-      imgBl = await imgServ.getImage('imgBl');
-      imgR = await imgServ.getImage('imgR');
-      imgPf = await imgServ.getImage('imgPf');
-      imgBanner = await imgServ.getImage('imgBanner');
+      imgTl = await imgServ.getImage('imgTl', userId);
+      imgBl = await imgServ.getImage('imgBl', userId);
+      imgR = await imgServ.getImage('imgR', userId);
+      imgPf = await imgServ.getImage('imgPf', userId);
+      imgBanner = await imgServ.getImage('imgBanner', userId);
       setState(() {});
     }
-
-    imgServ.getImage('tl');
 
     ran ? '' : setImages();
 
     Future pickImage(String location) async {
-      try {
+      if(widget.editRights){
+        try {
         pickedImage =
             await ImagePicker().pickImage(source: ImageSource.gallery);
         pickedImage;
@@ -106,9 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
       } on PlatformException catch (e) {
         print('Failed to get image: $e');
       }
+      }
     }
-
-    print('UserId: $userId');
 
     for (var e in fireStream) {
       if (userId == e.data().keys.toList().first) {
@@ -162,13 +148,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           Row(
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.all(10),
                                 child: ThemeSelector(),
                               ),
-                              SizedBox(width: 225),
+                              const SizedBox(width: 225),
                               IconButton(
-                                icon: Icon(Icons.chat),
+                                icon: const Icon(Icons.chat),
                                 color: Colors.white,
                                 onPressed: () {
                                   print('test');
@@ -235,80 +221,75 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  Container(
-                    child: Column(children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(38, 25, 0, 25),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Column(
-                            children: const [
-                              Text(
-                                'Bio:    ',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                              Text(
-                                'I like ... ',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                              ),
-                            ],
-                          ),
+                  Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(38, 25, 0, 25),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Column(
+                          children: const [
+                            Text(
+                              'Bio:    ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                            Text(
+                              'I like ... ',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                            ),
+                          ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      print('img1');
-                                      pickImage('imgTl');
-                                    },
-                                    child: Image.network(
-                                      imgTl,
-                                      height: 100,
-                                      width: 150,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )),
-                              Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      print('img2');
-                                      pickImage('imgBl');
-                                    },
-                                    child: Image.network(
-                                      imgBl,
-                                      height: 100,
-                                      width: 150,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ))
-                            ],
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: GestureDetector(
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: GestureDetector(
                                   onTap: () {
-                                    print('img3');
-                                    pickImage('imgR');
+                                    pickImage('imgTl');
                                   },
                                   child: Image.network(
-                                    imgR,
-                                    height: 215,
+                                    imgTl,
+                                    height: 100,
                                     width: 150,
                                     fit: BoxFit.cover,
-                                  )))
-                        ],
-                      )
-                    ]),
-                  )
+                                  ),
+                                )),
+                            Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    pickImage('imgBl');
+                                  },
+                                  child: Image.network(
+                                    imgBl,
+                                    height: 100,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ))
+                          ],
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: GestureDetector(
+                                onTap: () {
+                                  pickImage('imgR');
+                                },
+                                child: Image.network(
+                                  imgR,
+                                  height: 215,
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                )))
+                      ],
+                    )
+                  ])
                 ],
               ),
             ),
@@ -319,6 +300,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
+// ignore: must_be_immutable
 class IconT extends StatelessWidget {
   late String text;
   late Icon icon;
@@ -333,7 +315,7 @@ class IconT extends StatelessWidget {
       ),
       Text(
         text,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       )
     ]);
   }
