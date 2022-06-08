@@ -33,9 +33,10 @@ class _LoginPageState extends State<LoginPage> {
                         textStyle: const TextStyle(fontSize: 60),
                         color: const Color.fromARGB(225, 0, 77, 121),
                         fontWeight: FontWeight.w600)),
-                const SizedBox(height: 340),
-                // SizedBox(
-                // height: 300, child: Image.asset('assets/loginImg.png')),
+                const SizedBox(height: 25),
+                SizedBox(
+                    height: 300, child: Image.asset('assets/loginImg.png')),
+                SizedBox(height: 75),
                 SingleChildScrollView(
                   child: Column(
                     children: [
