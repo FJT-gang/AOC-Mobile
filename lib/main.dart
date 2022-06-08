@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.robotoTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
-      title: "AOC Mobile",
+      title: "YouSocial",
       initialRoute: '/chat',
       routes: {
         '/login': (context) => const LoginPage(),
