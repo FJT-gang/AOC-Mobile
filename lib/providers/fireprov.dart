@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireProv extends ChangeNotifier {
   var inst = FirebaseFirestore.instance;
-  var userId = FirebaseAuth.instance.currentUser;
+  var userId = FirebaseAuth.instance.currentUser!.uid;
   var userName = '';
   var now = DateFormat('EEEE, d/M/y').format(DateTime.now());
 
@@ -21,27 +21,39 @@ class FireProv extends ChangeNotifier {
   }
 
   void setUserData(String name, String email) {
-    userId = FirebaseAuth.instance.currentUser;
+    var userId = FirebaseAuth.instance.currentUser;
     userName = name;
     inst.collection('users').doc(userId!.uid).set({
-      userId!.uid: {
+      userId.uid: {
         'name': name,
         'email': email,
       }
     });
   }
 
-  void addEvent(
-      String title, DateTime day, 
-      String startTime
-      ) {
-    inst.collection('calendar').add({title: {
-      'title': title,
-      'user': userName,
-      'creationDate': DateTime.now(),
-      'day': day,
-      'startTime': startTime,
-    }});
+  void addEvent(String title, DateTime day, String startTime) {
+    inst.collection('calendar').add({
+      title: {
+        'title': title,
+        'user': userName,
+        'creationDate': DateTime.now(),
+        'day': day,
+        'startTime': startTime,
+      }
+    });
+  }
+
+  void sendMessages(String toUserId, String message) {
+    List<String> userList = [toUserId, userId];
+    userList.sort();
+    final String messageId = '${userList[0]}${userList[1]}';
+    var now = DateTime.now();
+    inst.collection('messages').doc(messageId).collection(now.toString()).add({
+      now.toString(): {
+        'from': userId,
+        'message': message,
+      }
+    });
   }
 
   // void changeShoe(afstand, naam) {

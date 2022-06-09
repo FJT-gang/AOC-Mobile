@@ -1,3 +1,4 @@
+import 'package:aoc/providers/fireprov.dart';
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -16,7 +17,8 @@ import 'dart:io';
 class ProfilePage extends StatefulWidget {
   late String userId;
   late bool editRights;
-  ProfilePage({required this.editRights,required this.userId, Key? key}) : super(key: key);
+  ProfilePage({required this.editRights, required this.userId, Key? key})
+      : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -48,6 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     var themeProv = Provider.of<ThemeProv>(context, listen: true);
     var fireStream = Provider.of<List>(context, listen: true);
+    var fireProv = Provider.of<FireProv>(context, listen: true);
 
     var userId = widget.userId;
 
@@ -79,20 +82,20 @@ class _ProfilePageState extends State<ProfilePage> {
     ran ? '' : setImages();
 
     Future pickImage(String location) async {
-      if(widget.editRights){
+      if (widget.editRights) {
         try {
-        pickedImage =
-            await ImagePicker().pickImage(source: ImageSource.gallery);
-        pickedImage;
-        if (pickedImage == null) {
-          return;
-        } else {
-          await imgServ.uploadImage('users/$userId/$location', pickedImage!);
-          setImages();
+          pickedImage =
+              await ImagePicker().pickImage(source: ImageSource.gallery);
+          pickedImage;
+          if (pickedImage == null) {
+            return;
+          } else {
+            await imgServ.uploadImage('users/$userId/$location', pickedImage!);
+            setImages();
+          }
+        } on PlatformException catch (e) {
+          print('Failed to get image: $e');
         }
-      } on PlatformException catch (e) {
-        print('Failed to get image: $e');
-      }
       }
     }
 
@@ -104,6 +107,8 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       // print(e.data()[fireProv.userId!.uid].toString());
     }
+
+    fireProv.sendMessages('6AN3xBCg3HfySzPDgwe7FsHYKpE2', 'FakkaG');
 
     return SafeArea(
       child: Scaffold(
