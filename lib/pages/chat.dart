@@ -1,4 +1,5 @@
 import 'package:aoc/general/globals.dart';
+import 'package:aoc/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
@@ -22,7 +23,9 @@ class _ChatState extends State<Chat> {
               child: Row(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // go back button
+                      },
                       icon: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
@@ -56,12 +59,18 @@ class _ChatState extends State<Chat> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
                       height: 30,
                       width: 300,
-                      color: Colors.white,
-                      child: Text(
-                        'typ here',
-                        style: TextStyle(color: Colors.grey),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: Text(
+                          'Typ here',
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ),
                     ),
                     IconButton(
