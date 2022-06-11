@@ -112,33 +112,33 @@ class HomeCard extends StatelessWidget {
         Navigator.pushNamed(context, route);
       },
       child: Card(
-        color: Colors.blue[400],
+          color: Colors.blue[400],
           child: SizedBox(
-        height: 200,
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 140,
-              color: Colors.white,
+            height: 200,
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: 140,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 50),
+                Text(
+                  cardTitle,
+                  style: const TextStyle(
+                    fontSize: 50,
+                    color: Colors.white,
+                  ),
+                )
+              ],
             ),
-            const SizedBox(width: 50),
-            Text(
-              cardTitle,
-              style: const TextStyle(
-                fontSize: 50,
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  // Demo list to show querying
+  // Demo list
   List<String> searchTerms = [
     "Apple",
     "Banana",
@@ -179,9 +179,9 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<String> matchQuery = [];
-    for (var fruit in searchTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
+    for (var item in searchTerms) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
       }
     }
     return ListView.builder(
@@ -200,9 +200,9 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];
-    for (var fruit in searchTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
+    for (var item in searchTerms) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
       }
     }
     return ListView.builder(

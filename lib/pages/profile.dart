@@ -1,3 +1,4 @@
+import 'package:aoc/pages/chat.dart';
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -16,7 +17,8 @@ import 'dart:io';
 class ProfilePage extends StatefulWidget {
   late String userId;
   late bool editRights;
-  ProfilePage({required this.editRights,required this.userId, Key? key}) : super(key: key);
+  ProfilePage({required this.editRights, required this.userId, Key? key})
+      : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -34,15 +36,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Images
   String imgTl =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgBl =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgR =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgPf =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgBanner =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
 
   @override
   Widget build(BuildContext context) {
@@ -79,20 +81,20 @@ class _ProfilePageState extends State<ProfilePage> {
     ran ? '' : setImages();
 
     Future pickImage(String location) async {
-      if(widget.editRights){
+      if (widget.editRights) {
         try {
-        pickedImage =
-            await ImagePicker().pickImage(source: ImageSource.gallery);
-        pickedImage;
-        if (pickedImage == null) {
-          return;
-        } else {
-          await imgServ.uploadImage('users/$userId/$location', pickedImage!);
-          setImages();
+          pickedImage =
+              await ImagePicker().pickImage(source: ImageSource.gallery);
+          pickedImage;
+          if (pickedImage == null) {
+            return;
+          } else {
+            await imgServ.uploadImage('users/$userId/$location', pickedImage!);
+            setImages();
+          }
+        } on PlatformException catch (e) {
+          print('Failed to get image: $e');
         }
-      } on PlatformException catch (e) {
-        print('Failed to get image: $e');
-      }
       }
     }
 
@@ -157,7 +159,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 icon: const Icon(Icons.chat),
                                 color: Colors.white,
                                 onPressed: () {
-                                  print('test');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Chat()),
+                                  );
                                 },
                               ),
                             ],
