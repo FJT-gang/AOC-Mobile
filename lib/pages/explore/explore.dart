@@ -57,9 +57,9 @@ class _ExploreState extends State<Explore> {
                           Icons.arrow_back,
                           color: Colors.white,
                         )),
-                    SizedBox(width: 45),
+                    SizedBox(width: 60),
                     Text(
-                      'Search results:',
+                      'All accounts:',
                       style: TextStyle(fontSize: 30, color: Colors.white),
                     ),
                   ],
