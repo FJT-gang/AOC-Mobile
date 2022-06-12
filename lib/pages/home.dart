@@ -1,3 +1,4 @@
+import 'package:aoc/general/globals.dart';
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -66,7 +67,7 @@ class Home extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 35),
                     // HomeCard(
                     //     cardTitle: 'Calendar',
                     //     imgSource: 'assets/calendarImg${themeProv.color}.jpg',
@@ -111,28 +112,34 @@ class HomeCard extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, route);
       },
-      child: Card(
-          color: Colors.blue[400],
-          child: SizedBox(
-            height: 200,
-            child: Row(
-              children: [
-                Icon(
-                  icon,
-                  size: 140,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 50),
-                Text(
-                  cardTitle,
-                  style: const TextStyle(
-                    fontSize: 50,
-                    color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Card(
+            color: Globals.bgDarkBlue,
+            child: SizedBox(
+              height: 200,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Icon(
+                      icon,
+                      size: 120,
+                      color: Colors.white,
+                    ),
                   ),
-                )
-              ],
-            ),
-          )),
+                  const SizedBox(width: 10),
+                  Text(
+                    cardTitle,
+                    style: const TextStyle(
+                      fontSize: 50,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

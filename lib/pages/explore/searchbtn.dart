@@ -48,7 +48,7 @@ class ProfLink extends StatelessWidget {
                   children: [
                     //const SizedBox(width: 20),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 15, 30, 15),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 30, 10),
                       child: Image.network(
                         logoSource,
                         width: 60,
