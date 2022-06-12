@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 // Pages
 import 'package:aoc/pages/otherprofile.dart';
 
+import 'package:aoc/providers/themeprov.dart';
+
 // ignore: must_be_immutable
 class ProfLink extends StatelessWidget {
   late String logoSource;
@@ -14,6 +16,8 @@ class ProfLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProv = Provider.of<ThemeProv>(context, listen: true);
+
     var fireStream = Provider.of<List>(context, listen: true);
     String usrName = "";
 
@@ -41,7 +45,7 @@ class ProfLink extends StatelessWidget {
           SizedBox(
             width: 350,
             child: Card(
-              color: Globals.bgDarkBlue,
+              color: themeProv.homecard,
               child: SizedBox(
                 height: 80,
                 child: Row(
