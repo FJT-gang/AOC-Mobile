@@ -1,3 +1,4 @@
+import 'package:aoc/pages/chat.dart';
 import 'package:flutter/material.dart';
 // Widgets
 import 'package:aoc/widgets/themeWidget.dart';
@@ -38,15 +39,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Images
   String imgTl =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgBl =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgR =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgPf =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String imgBanner =
-      'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
 
   @override
   Widget build(BuildContext context) {
