@@ -3,6 +3,7 @@ import 'package:aoc/general/globals.dart';
 // Firebase
 import 'package:firebase_auth/firebase_auth.dart';
 // Provider
+import 'package:provider/otherUserIdprovider.dart';
 import 'package:provider/provider.dart';
 import '../providers/fireprov.dart';
 

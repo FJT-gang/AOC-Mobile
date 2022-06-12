@@ -1,3 +1,4 @@
+import 'package:aoc/general/globals.dart';
 import 'package:flutter/material.dart';
 // Provider
 import 'package:provider/provider.dart';
@@ -40,24 +41,29 @@ class ProfLink extends StatelessWidget {
           SizedBox(
             width: 350,
             child: Card(
+              color: Globals.bgDarkBlue,
               child: SizedBox(
-                height: 120,
+                height: 80,
                 child: Row(
                   children: [
-                    const SizedBox(width: 20),
-                    Image.network(
-                      logoSource,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
+                    //const SizedBox(width: 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 30, 15),
+                      child: Image.network(
+                        logoSource,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    const SizedBox(width: 50),
+                    //const SizedBox(width: 50),
                     Text(
                       usrName,
                       style: const TextStyle(
-                        fontSize: 40,
+                        color: Colors.white,
+                        fontSize: 30,
                       ),
-                      ),
+                    ),
                   ],
                 ),
               ),
