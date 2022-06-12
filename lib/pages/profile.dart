@@ -6,12 +6,15 @@ import 'package:aoc/widgets/themeWidget.dart';
 import 'package:flutter/services.dart';
 // Provider
 import 'package:provider/provider.dart';
-import 'package:aoc/providers/themeprov.dart';
+import '../providers/themeprov.dart';
+import '../providers/fireprov.dart';
 // Serv
 import 'package:aoc/services/imgserv.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
+import 'package:aoc/pages/chat.dart';
 
 // ignore: must_be_immutable
 class ProfilePage extends StatefulWidget {
@@ -162,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const Chat()),
+                                        builder: (context) => Chat(otherUserId: userId,)),
                                   );
                                 },
                               ),
