@@ -5,18 +5,22 @@ import 'package:aoc/widgets/themeWidget.dart';
 import 'package:flutter/services.dart';
 // Provider
 import 'package:provider/provider.dart';
-import 'package:aoc/providers/themeprov.dart';
+import '../providers/themeprov.dart';
+import '../providers/fireprov.dart';
 // Serv
 import 'package:aoc/services/imgserv.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import 'package:aoc/pages/chat.dart';
+
 // ignore: must_be_immutable
 class ProfilePage extends StatefulWidget {
   late String userId;
   late bool editRights;
-  ProfilePage({required this.editRights,required this.userId, Key? key}) : super(key: key);
+  ProfilePage({required this.editRights, required this.userId, Key? key})
+      : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -79,20 +83,20 @@ class _ProfilePageState extends State<ProfilePage> {
     ran ? '' : setImages();
 
     Future pickImage(String location) async {
-      if(widget.editRights){
+      if (widget.editRights) {
         try {
-        pickedImage =
-            await ImagePicker().pickImage(source: ImageSource.gallery);
-        pickedImage;
-        if (pickedImage == null) {
-          return;
-        } else {
-          await imgServ.uploadImage('users/$userId/$location', pickedImage!);
-          setImages();
+          pickedImage =
+              await ImagePicker().pickImage(source: ImageSource.gallery);
+          pickedImage;
+          if (pickedImage == null) {
+            return;
+          } else {
+            await imgServ.uploadImage('users/$userId/$location', pickedImage!);
+            setImages();
+          }
+        } on PlatformException catch (e) {
+          print('Failed to get image: $e');
         }
-      } on PlatformException catch (e) {
-        print('Failed to get image: $e');
-      }
       }
     }
 
@@ -157,7 +161,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 icon: const Icon(Icons.chat),
                                 color: Colors.white,
                                 onPressed: () {
-                                  print('test');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Chat(otherUserId: userId,)),
+                                  );
                                 },
                               ),
                             ],

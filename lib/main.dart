@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "YouSocial",
-      initialRoute: '/login',
+      initialRoute: '/explore',
       routes: {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => SignUpPage(),
@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
         '/calendar': (context) => const Calendar(),
         '/myprofile': (context) => MyProfile(),
         '/explore': (context) => const Explore(),
-        '/chat': (context) => const Chat(),
       },
     );
   }

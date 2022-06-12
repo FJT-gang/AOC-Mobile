@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireProv extends ChangeNotifier {
   var inst = FirebaseFirestore.instance;
-  var userId = FirebaseAuth.instance.currentUser;
+  var userId = FirebaseAuth.instance.currentUser!.uid;
   var userName = '';
   var now = DateFormat('EEEE, d/M/y').format(DateTime.now());
 
@@ -21,27 +21,54 @@ class FireProv extends ChangeNotifier {
   }
 
   void setUserData(String name, String email) {
-    userId = FirebaseAuth.instance.currentUser;
     userName = name;
-    inst.collection('users').doc(userId!.uid).set({
-      userId!.uid: {
+    inst.collection('users').doc(userId).set({
+      userId: {
         'name': name,
         'email': email,
       }
     });
   }
 
-  void addEvent(
-      String title, DateTime day, 
-      String startTime
-      ) {
-    inst.collection('calendar').add({title: {
-      'title': title,
-      'user': userName,
-      'creationDate': DateTime.now(),
-      'day': day,
-      'startTime': startTime,
-    }});
+  void addEvent(String title, DateTime day, String startTime) {
+    inst.collection('calendar').add({
+      title: {
+        'title': title,
+        'user': userName,
+        'creationDate': DateTime.now(),
+        'day': day,
+        'startTime': startTime,
+      }
+    });
+  }
+
+  // Messages
+  String getMessageId(ohterUser) {
+    List<String> userList = [ohterUser, userId];
+    userList.sort();
+    return '${userList[0]}${userList[1]}';
+  }
+
+  void sendMessages(String toUserId, String message) {
+    final String messageId = getMessageId(toUserId);
+    var date = DateTime.now();
+    inst.collection('messages').doc(messageId).collection('message').add({
+      date.toString(): {
+        'sender': userId,
+        'message': message,
+      }
+    });
+  }
+
+  Stream<List>? getMessages(fromUserId) {
+    final String messageId = getMessageId(fromUserId);
+    return inst
+        .collection('messages')
+        .doc(messageId)
+        .collection('message')
+        .snapshots()
+        .map((snapshots) => snapshots.docs.toList());
+        
   }
 
   // void changeShoe(afstand, naam) {
