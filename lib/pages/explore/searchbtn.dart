@@ -23,6 +23,7 @@ class ProfLink extends StatelessWidget {
 
     String userId = usrPath.substring(6);
     for (var e in fireStream) {
+      print(e);
       if (userId == e.data().keys.toList().first) {
         usrName = e.data()[userId]['name'];
         break;
@@ -30,7 +31,6 @@ class ProfLink extends StatelessWidget {
       }
       // print(e.data()[fireProv.userId!.uid].toString());
     }
-    print('id: $userId');
     return GestureDetector(
       onTap: () {
         Navigator.push(

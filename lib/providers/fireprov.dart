@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireProv extends ChangeNotifier {
   var inst = FirebaseFirestore.instance;
-  var userId = FirebaseAuth.instance.currentUser!.uid;
+  // var userId = FirebaseAuth.instance.currentUser!.uid;
   var userName = '';
   var now = DateFormat('EEEE, d/M/y').format(DateTime.now());
 
@@ -21,6 +21,7 @@ class FireProv extends ChangeNotifier {
   }
 
   void setUserData(String name, String email) {
+    var userId = FirebaseAuth.instance.currentUser!.uid;
     userName = name;
     inst.collection('users').doc(userId).set({
       userId: {
@@ -44,12 +45,14 @@ class FireProv extends ChangeNotifier {
 
   // Messages
   String getMessageId(ohterUser) {
+    var userId = FirebaseAuth.instance.currentUser!.uid;
     List<String> userList = [ohterUser, userId];
     userList.sort();
     return '${userList[0]}${userList[1]}';
   }
 
   void sendMessages(String toUserId, String message) {
+    var userId = FirebaseAuth.instance.currentUser!.uid;
     final String messageId = getMessageId(toUserId);
     var date = DateTime.now();
     inst.collection('messages').doc(messageId).collection('message').add({
