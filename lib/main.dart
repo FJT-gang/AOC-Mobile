@@ -1,5 +1,5 @@
 // <uses-permission android:name="android.permission.INTERNET"/>
-// flutter build apk --build-name=1.0.1 --build-number=4
+// flutter build apk --build-name=1.0.1 --build-number=6
 import 'package:aoc/pages/chat.dart';
 import 'package:aoc/pages/profile.dart';
 
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "YouSocial",
-      initialRoute: '/explore',
+      initialRoute: '/home',
       routes: {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => SignUpPage(),

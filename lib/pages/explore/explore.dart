@@ -33,20 +33,13 @@ class _ExploreState extends State<Explore> {
     return Scaffold(
       backgroundColor: themeProv.bgColor,
       body: SafeArea(
-        child: Column(
+        child: ListView(
+          scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
           children: [
             Container(
-                height: 65,
+                height: 40,
                 width: 400,
-                decoration: BoxDecoration(
-                  color: Globals.bgDarkBlue,
-                  borderRadius: const BorderRadiusDirectional.only(
-                    topStart: Radius.zero,
-                    topEnd: Radius.zero,
-                    bottomStart: Radius.circular(8),
-                    bottomEnd: Radius.circular(8),
-                  ),
-                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -57,15 +50,16 @@ class _ExploreState extends State<Explore> {
                           Icons.arrow_back,
                           color: Colors.white,
                         )),
-                    SizedBox(width: 45),
-                    Text(
-                      'Search results:',
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    ),
+                    const SizedBox(width: 45),
+                    // const Text(
+                    //   'Search results:',
+                    //   style: TextStyle(fontSize: 30, color: Colors.white),
+                    // ),
                   ],
                 )),
-            SizedBox(height: 25),
-            Center(child: Column(children: usrColumn)),
+            const SizedBox(height: 25),
+            Center(child: Column(
+              children: usrColumn)),
           ],
         ),
       ),
