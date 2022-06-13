@@ -1,8 +1,11 @@
+import 'package:aoc/general/globals.dart';
 import 'package:flutter/material.dart';
 // Provider
 import 'package:provider/provider.dart';
 // Pages
 import 'package:aoc/pages/otherprofile.dart';
+
+import 'package:aoc/providers/themeprov.dart';
 
 // ignore: must_be_immutable
 class ProfLink extends StatelessWidget {
@@ -13,6 +16,8 @@ class ProfLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProv = Provider.of<ThemeProv>(context, listen: true);
+
     var fireStream = Provider.of<List>(context, listen: true);
     String usrName = "";
 
@@ -40,22 +45,27 @@ class ProfLink extends StatelessWidget {
           SizedBox(
             width: 350,
             child: Card(
+              color: themeProv.homecard,
               child: SizedBox(
-                height: 120,
+                height: 80,
                 child: Row(
                   children: [
-                    const SizedBox(width: 20),
-                    Image.network(
-                      logoSource,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
+                    //const SizedBox(width: 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 10, 30, 10),
+                      child: Image.network(
+                        logoSource,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    const SizedBox(width: 50),
+                    //const SizedBox(width: 50),
                     Text(
                       usrName,
                       style: const TextStyle(
-                        fontSize: 40,
+                        color: Colors.white,
+                        fontSize: 30,
                       ),
                     ),
                   ],
