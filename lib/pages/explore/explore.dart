@@ -33,36 +33,6 @@ class _ExploreState extends State<Explore> {
     return Scaffold(
       backgroundColor: themeProv.bgColor,
       body: SafeArea(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-          children: [
-            Container(
-                height: 40,
-                width: 400,
-                child: Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        )),
-                    const SizedBox(width: 45),
-                    // const Text(
-                    //   'Search results:',
-                    //   style: TextStyle(fontSize: 30, color: Colors.white),
-                    // ),
-                  ],
-                )),
-            const SizedBox(height: 25),
-            Center(child: Column(
-              children: usrColumn)),
-          ],
-        )),
-        child: SafeArea(
           child: Column(
             children: [
               Container(
@@ -98,7 +68,6 @@ class _ExploreState extends State<Explore> {
               Center(child: Column(children: usrColumn)),
             ],
           ),
-        ),
       ),
     );
   }
