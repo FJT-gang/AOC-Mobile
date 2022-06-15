@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 // Packages
 import 'package:image_picker/image_picker.dart';
 // Widget
-import 'package:aoc/pages/explore/searchbtn.dart';
+import 'package:aoc/widgets/searchbtn.dart';
 
 class ImgServ {
   List imgList = [];
@@ -61,7 +61,7 @@ class ImgServ {
       final imgUrl = await getRef(imageRef.fullPath).getDownloadURL();
       return imgUrl;
     } catch (e) {
-      return 'https://i.pinimg.com/736x/1c/53/c5/1c53c5b3f3c6e788bfd32f2b4d54ed59.jpg';
+      return 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
     }
   }
 
@@ -71,5 +71,17 @@ class ImgServ {
     // opslaan van afbeelding mbv ref
     await getRef(path).putFile(File(pickedImage.path));
     return '';
+  }
+
+  Future pushImageMessage(String path, XFile pickedImage) async {
+    await getRef(path).putFile(File(pickedImage.path));
+
+    try {
+      final Reference imageRef = FirebaseStorage.instance.ref().child(path);
+      final imgUrl = await getRef(imageRef.fullPath).getDownloadURL();
+      return imgUrl;
+    } catch (e) {
+      return '';
+    }
   }
 }

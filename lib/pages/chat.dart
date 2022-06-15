@@ -1,16 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:aoc/general/globals.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 // Firebase
 // Provider
 import 'package:provider/provider.dart';
 import '../providers/fireprov.dart';
+import '../services/imgserv.dart';
 
 class Chat extends StatelessWidget {
   late String userName;
   late String otherUserId;
   late String imgSource;
-  Chat({Key? key, required this.otherUserId, required this.userName, required this.imgSource})
+  Chat(
+      {Key? key,
+      required this.otherUserId,
+      required this.userName,
+      required this.imgSource})
       : super(key: key);
 
   @override
@@ -48,19 +55,18 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     var fireProv = Provider.of<FireProv>(context, listen: true);
     var messageStream = Provider.of<List>(context, listen: true);
+    ImgServ imgServ = ImgServ();
 
     List messageData = [];
-    List<Widget> userMessages = [];
+    List<Widget> userMessages = [const SizedBox(height: 50)];
     List messageList = [];
     var userId = FirebaseAuth.instance.currentUser!.uid;
     void setMessages() {
       for (var message in messageList) {
-        userMessages.add(
-          const SizedBox(height: 50),
-        );
         userMessages.add(Message(
           text: message['message'],
           fromUsr: message['sender'] == userId,
+          type: message['type'],
         ));
       }
       setState(() {});
@@ -96,6 +102,28 @@ class _ChatPageState extends State<ChatPage> {
 
     getMessages();
 
+    var pickedImage;
+    Future pickImage() async {
+      try {
+        pickedImage =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        pickedImage;
+        if (pickedImage == null) {
+          return;
+        } else {
+          var date = DateTime.now();
+          String imgUrl = await imgServ.pushImageMessage(
+              'users/$userId/chat/$date', pickedImage!);
+
+          if (imgUrl != "") {
+            fireProv.sendMessages(widget.otherUsrId, imgUrl, 'image');
+          }
+        }
+      } on PlatformException catch (e) {
+        print('Failed to get image: $e');
+      }
+    }
+
     return SafeArea(
       child: Scaffold(
           resizeToAvoidBottomInset: true,
@@ -123,7 +151,8 @@ class _ChatPageState extends State<ChatPage> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                                image: NetworkImage(widget.imgSource), fit: BoxFit.cover),
+                                image: NetworkImage(widget.imgSource),
+                                fit: BoxFit.cover),
                           ),
                         ),
                       ),
@@ -158,9 +187,15 @@ class _ChatPageState extends State<ChatPage> {
                               controller: messageController,
                             )),
                         IconButton(
+                          onPressed: () {
+                            pickImage();
+                          },
+                          icon: const Icon(Icons.photo, color: Colors.white),
+                        ),
+                        IconButton(
                             onPressed: () {
-                              fireProv.sendMessages(
-                                  widget.otherUsrId, messageController.text);
+                              fireProv.sendMessages(widget.otherUsrId,
+                                  messageController.text, 'text');
                               setState(() {});
                               messageController.text = "";
                             },
@@ -180,21 +215,45 @@ class _ChatPageState extends State<ChatPage> {
 class Message extends StatelessWidget {
   late String text;
   late bool fromUsr;
-  Message({required this.text, required this.fromUsr, Key? key})
+  late String type;
+  Message(
+      {required this.text, required this.fromUsr, required this.type, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Color? msgColor = fromUsr ? Colors.blue[900] : Colors.blue[200];
-    return Container(
-      color: msgColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+    Widget message = const Text('');
+    if (type == 'text') {
+      message = SizedBox(
+        // width: 200,
         child: Text(text,
+            textAlign: TextAlign.end,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
             )),
+      );
+    } else if (type == 'image') {
+      message = Image.network(
+        text,
+        height: 200,
+        width: 200,
+      );
+    }
+    Color? msgColor = fromUsr ? Colors.blue[900] : Colors.blue[200];
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Align(
+        alignment: fromUsr ? Alignment.topRight : Alignment.topLeft,
+        child: Container( 
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+              color: msgColor,
+          ),
+           child: message
+          ),
       ),
     );
   }
