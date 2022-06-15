@@ -186,12 +186,6 @@ class _ChatPageState extends State<ChatPage> {
                     child: Row(
                       children: [
                         IconButton(
-                          onPressed: () {
-                            pickImage();
-                          },
-                          icon: const Icon(Icons.photo, color: Colors.white),
-                        ),
-                        IconButton(
                             onPressed: () {
                               fireProv.sendMessages(widget.otherUsrId,
                                   messageController.text, 'text');
@@ -223,9 +217,7 @@ class _ChatPageState extends State<ChatPage> {
                       ],
                     ),
                   ),
-                ),
-                // middenste stuk met berichten
-                Align(
+                  Align(
                   child: Container(
                       height: 585,
                       width: 1000,
@@ -256,10 +248,16 @@ class _ChatPageState extends State<ChatPage> {
                                   hintText: 'Typ your message',
                                 ),
                               )),
+                              IconButton(
+                          onPressed: () {
+                            pickImage();
+                          },
+                          icon: const Icon(Icons.photo, color: Colors.white),
+                        ),
                           IconButton(
                               onPressed: () {
                                 fireProv.sendMessages(
-                                    widget.otherUsrId, messageController.text);
+                                    widget.otherUsrId, messageController.text, 'text');
                                 setState(() {});
                                 messageController.text = "";
                               },
@@ -297,7 +295,7 @@ class Message extends StatelessWidget {
         child: Text(text,
             textAlign: TextAlign.end,
             style: const TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 20,
             )),
       );
