@@ -223,54 +223,6 @@ class _ChatPageState extends State<ChatPage> {
                       ],
                     ),
                   ),
-                ),
-                // middenste stuk met berichten
-                Align(
-                  child: Container(
-                      height: 585,
-                      width: 1000,
-                      color: themeProv.bgColor,
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        children: userMessages,
-                      )),
-                ),
-
-                // text container
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      height: 100,
-                      color: themeProv.homecard,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              width: 300,
-                              height: 30,
-                              color: Colors.white,
-                              child: TextFormField(
-                                controller: messageController,
-                                decoration: InputDecoration(
-                                  hintText: 'Typ your message',
-                                ),
-                              )),
-                          IconButton(
-                              onPressed: () {
-                                fireProv.sendMessages(
-                                    widget.otherUsrId, messageController.text);
-                                setState(() {});
-                                messageController.text = "";
-                              },
-                              icon: const Icon(
-                                Icons.send,
-                                color: Colors.white,
-                                size: 30,
-                              )),
-                        ],
-                      )),
-                )
               ],
             ),
           )),
