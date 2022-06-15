@@ -7,7 +7,11 @@ import 'package:image_picker/image_picker.dart';
 // Provider
 import 'package:provider/provider.dart';
 import '../providers/fireprov.dart';
+
 import '../services/imgserv.dart';
+
+import '../providers/themeprov.dart';
+
 
 class Chat extends StatelessWidget {
   late String userName;
@@ -55,7 +59,10 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     var fireProv = Provider.of<FireProv>(context, listen: true);
     var messageStream = Provider.of<List>(context, listen: true);
+     var themeProv = Provider.of<ThemeProv>(context, listen: true);
+
     ImgServ imgServ = ImgServ();
+
 
     List messageData = [];
     List<Widget> userMessages = [const SizedBox(height: 50)];
@@ -128,8 +135,8 @@ class _ChatPageState extends State<ChatPage> {
       child: Scaffold(
           resizeToAvoidBottomInset: true,
           body: Container(
-            color: Globals.bgDarkBlue,
-            child: Column(
+            color: themeProv.bgColor,
+            child: Stack(
               children: [
                 Container(
                   color: Globals.bgDarkBlue,
@@ -177,15 +184,7 @@ class _ChatPageState extends State<ChatPage> {
                     height: 77,
                     color: Globals.bgDarkBlue,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                            width: 300,
-                            height: 20,
-                            color: Colors.grey[100],
-                            child: TextFormField(
-                              controller: messageController,
-                            )),
                         IconButton(
                           onPressed: () {
                             pickImage();
@@ -200,11 +199,78 @@ class _ChatPageState extends State<ChatPage> {
                               messageController.text = "";
                             },
                             icon: const Icon(
-                              Icons.send,
+                              Icons.arrow_back,
                               color: Colors.white,
                             )),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: NetworkImage(widget.imgSource),
+                                  fit: BoxFit.cover),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          widget.usrName,
+                          style: const TextStyle(
+                              fontSize: 25, color: Colors.white),
+                        )
                       ],
-                    ))
+                    ),
+                  ),
+                ),
+                // middenste stuk met berichten
+                Align(
+                  child: Container(
+                      height: 585,
+                      width: 1000,
+                      color: themeProv.bgColor,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: userMessages,
+                      )),
+                ),
+
+                // text container
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                      height: 100,
+                      color: themeProv.homecard,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              width: 300,
+                              height: 30,
+                              color: Colors.white,
+                              child: TextFormField(
+                                controller: messageController,
+                                decoration: InputDecoration(
+                                  hintText: 'Typ your message',
+                                ),
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                fireProv.sendMessages(
+                                    widget.otherUsrId, messageController.text);
+                                setState(() {});
+                                messageController.text = "";
+                              },
+                              icon: const Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 30,
+                              )),
+                        ],
+                      )),
+                )
               ],
             ),
           )),
@@ -222,14 +288,16 @@ class Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Widget message = const Text('');
     if (type == 'text') {
       message = SizedBox(
         // width: 200,
+
         child: Text(text,
             textAlign: TextAlign.end,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 20,
             )),
       );

@@ -10,6 +10,6 @@ class Globals {
   static Color grBlueEnd = const Color.fromARGB(255, 15, 129, 196);
   // Orange Theme
   static Color bgOrange = const Color.fromARGB(255, 255, 171, 111);
-  static Color grOrangeStart = const Color.fromARGB(255, 245, 147, 77);
-  static Color grOrangeEnd = const Color.fromARGB(255, 195, 34, 34);
+  static Color grOrangeStart = Color.fromARGB(255, 255, 167, 120);
+  static Color grOrangeEnd = Color.fromARGB(255, 255, 136, 57);
 }

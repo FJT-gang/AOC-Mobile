@@ -8,6 +8,7 @@ class ThemeProv extends ChangeNotifier {
   Color grStart = Globals.grBlueStart;
   Color grEnd = Globals.grBlueEnd;
   Color homecard = Globals.bgDarkBlue;
+
   String color = 'blue';
 
   void changeTheme(colorr) {
@@ -21,7 +22,7 @@ class ThemeProv extends ChangeNotifier {
       bgColor = Globals.bgOrange;
       grStart = Globals.grOrangeStart;
       grEnd = Globals.grOrangeEnd;
-      homecard = Color.fromARGB(255, 255, 136, 0);
+      homecard = Color.fromARGB(255, 255, 106, 0);
     }
 
     notifyListeners();
