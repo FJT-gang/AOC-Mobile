@@ -106,89 +106,93 @@ class _ChatPageState extends State<ChatPage> {
       child: Scaffold(
           resizeToAvoidBottomInset: true,
           body: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                themeProv.grStart,
-                themeProv.grEnd,
-              ],
-            )),
-            child: Column(
+            color: themeProv.bgColor,
+            child: Stack(
               children: [
-                Container(
-                  color: themeProv.homecard,
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: NetworkImage(widget.imgSource),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        widget.usrName,
-                        style:
-                            const TextStyle(fontSize: 25, color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                    height: 550,
-                    width: 1000,
-                    color: themeProv.bgColor,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      children: userMessages,
-                    )),
-                Container(
-                    height: 100,
+                // bovenste container met name en pf
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
                     color: themeProv.homecard,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                            width: 300,
-                            height: 30,
-                            color: Colors.white,
-                            child: TextFormField(
-                              controller: messageController,
-                              decoration: InputDecoration(
-                                hintText: 'Typ your message',
-                              ),
-                            )),
                         IconButton(
                             onPressed: () {
-                              fireProv.sendMessages(
-                                  widget.otherUsrId, messageController.text);
-                              setState(() {});
-                              messageController.text = "";
+                              Navigator.pop(context);
                             },
                             icon: const Icon(
-                              Icons.send,
+                              Icons.arrow_back,
                               color: Colors.white,
-                              size: 30,
                             )),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: NetworkImage(widget.imgSource),
+                                  fit: BoxFit.cover),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          widget.usrName,
+                          style: const TextStyle(
+                              fontSize: 25, color: Colors.white),
+                        )
                       ],
-                    ))
+                    ),
+                  ),
+                ),
+                // middenste stuk met berichten
+                Align(
+                  child: Container(
+                      height: 585,
+                      width: 1000,
+                      color: themeProv.bgColor,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: userMessages,
+                      )),
+                ),
+
+                // text container
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                      height: 100,
+                      color: themeProv.homecard,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              width: 300,
+                              height: 30,
+                              color: Colors.white,
+                              child: TextFormField(
+                                controller: messageController,
+                                decoration: InputDecoration(
+                                  hintText: 'Typ your message',
+                                ),
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                fireProv.sendMessages(
+                                    widget.otherUsrId, messageController.text);
+                                setState(() {});
+                                messageController.text = "";
+                              },
+                              icon: const Icon(
+                                Icons.send,
+                                color: Colors.white,
+                                size: 30,
+                              )),
+                        ],
+                      )),
+                )
               ],
             ),
           )),
