@@ -51,7 +51,7 @@ class FireProv extends ChangeNotifier {
     return '${userList[0]}${userList[1]}';
   }
 
-  void sendMessages(String toUserId, String message, String type) async {
+  void sendMessages(String toUserId, String message) {
     var userId = FirebaseAuth.instance.currentUser!.uid;
     final String messageId = getMessageId(toUserId);
     var date = DateTime.now();
@@ -59,7 +59,6 @@ class FireProv extends ChangeNotifier {
       date.toString(): {
         'sender': userId,
         'message': message,
-        'type': type,
       }
     });
   }
@@ -72,5 +71,15 @@ class FireProv extends ChangeNotifier {
         .collection('message')
         .snapshots()
         .map((snapshots) => snapshots.docs.toList());
+        
   }
+
+  // void changeShoe(afstand, naam) {
+  //   inst.collection(userId!.uid).doc(naam.toString()).set({
+  //     'afstand': afstand.toString(),
+  //     'naam': naam.toString(),
+  //     'laatst_bewerkt': now,
+  //   });
+  //   notifyListeners();
+  // }
 }
