@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 // Firebase
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ntp/ntp.dart';
 
 class FireProv extends ChangeNotifier {
   var inst = FirebaseFirestore.instance;
