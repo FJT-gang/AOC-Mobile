@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 // Packages
 import 'package:image_picker/image_picker.dart';
 // Widget
-import 'package:aoc/widgets/searchbtn.dart';
+import 'package:aoc/pages/explore/searchbtn.dart';
 
 class ImgServ {
   List imgList = [];
@@ -71,17 +71,5 @@ class ImgServ {
     // opslaan van afbeelding mbv ref
     await getRef(path).putFile(File(pickedImage.path));
     return '';
-  }
-
-  Future pushImageMessage(String path, XFile pickedImage) async {
-    await getRef(path).putFile(File(pickedImage.path));
-
-    try {
-      final Reference imageRef = FirebaseStorage.instance.ref().child(path);
-      final imgUrl = await getRef(imageRef.fullPath).getDownloadURL();
-      return imgUrl;
-    } catch (e) {
-      return '';
-    }
   }
 }
