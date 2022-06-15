@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'dart:io';
 // Firebase
@@ -6,7 +8,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 // Packages
 import 'package:image_picker/image_picker.dart';
 // Widget
-import 'package:aoc/pages/explore/searchbtn.dart';
+
+import '../pages/explore/searchbtn.dart';
 
 class ImgServ {
   List imgList = [];
@@ -49,6 +52,7 @@ class ImgServ {
       userColumn.add(ProfLink(
         logoSource: imgPf,
         usrPath: i.fullPath,
+        
       ));
     }
     return userColumn;
@@ -71,5 +75,17 @@ class ImgServ {
     // opslaan van afbeelding mbv ref
     await getRef(path).putFile(File(pickedImage.path));
     return '';
+  }
+
+  Future pushImageMessage(String path, XFile pickedImage) async {
+    await getRef(path).putFile(File(pickedImage.path));
+
+    try {
+      final Reference imageRef = FirebaseStorage.instance.ref().child(path);
+      final imgUrl = await getRef(imageRef.fullPath).getDownloadURL();
+      return imgUrl;
+    } catch (e) {
+      return '';
+    }
   }
 }
