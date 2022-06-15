@@ -131,14 +131,17 @@ class _ChatPageState extends State<ChatPage> {
       }
     }
 
+    double height = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Scaffold(
           resizeToAvoidBottomInset: true,
           body: Container(
             color: themeProv.bgColor,
-            child: Stack(
+            child: Column(
               children: [
                 Container(
+                  height: height * 0.10,
                   color: Globals.bgDarkBlue,
                   child: Row(
                     children: [
@@ -154,7 +157,6 @@ class _ChatPageState extends State<ChatPage> {
                         padding: const EdgeInsets.all(8),
                         child: Container(
                           width: 50,
-                          height: 50,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
@@ -171,103 +173,57 @@ class _ChatPageState extends State<ChatPage> {
                     ],
                   ),
                 ),
-                Container(
-                    height: 515,
-                    width: 10000,
-                    color: Globals.bgLightBlue,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      children: userMessages,
-                    )),
-                Container(
-                    height: 77,
-                    color: Globals.bgDarkBlue,
-                    child: Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              fireProv.sendMessages(widget.otherUsrId,
-                                  messageController.text, 'text');
-                              setState(() {});
-                              messageController.text = "";
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: NetworkImage(widget.imgSource),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          widget.usrName,
-                          style: const TextStyle(
-                              fontSize: 25, color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ),
-                  Align(
-                  child: Container(
-                      height: 585,
+                  Container(
                       width: 1000,
+                      height: height * 0.71,
                       color: themeProv.bgColor,
                       child: ListView(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         children: userMessages,
                       )),
-                ),
 
                 // text container
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      height: 100,
-                      color: themeProv.homecard,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              width: 300,
-                              height: 30,
-                              color: Colors.white,
-                              child: TextFormField(
-                                controller: messageController,
-                                decoration: InputDecoration(
-                                  hintText: 'Typ your message',
-                                ),
-                              )),
-                              IconButton(
-                          onPressed: () {
-                            pickImage();
-                          },
-                          icon: const Icon(Icons.photo, color: Colors.white),
-                        ),
-                          IconButton(
-                              onPressed: () {
-                                fireProv.sendMessages(
-                                    widget.otherUsrId, messageController.text, 'text');
-                                setState(() {});
-                                messageController.text = "";
-                              },
-                              icon: const Icon(
-                                Icons.send,
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                        height: height * 0.15,
+                        color: themeProv.homecard,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                width: 300,
+                                height: 30,
                                 color: Colors.white,
-                                size: 30,
-                              )),
-                        ],
-                      )),
+                                child: TextFormField(
+                                  controller: messageController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Typ your message',
+                                  ),
+                                )),
+                                IconButton(
+                            onPressed: () {
+                              pickImage();
+                            },
+                            icon: const Icon(Icons.photo, color: Colors.white),
+                          ),
+                            IconButton(
+                                onPressed: () {
+                                  fireProv.sendMessages(
+                                      widget.otherUsrId, messageController.text, 'text');
+                                  setState(() {});
+                                  messageController.text = "";
+                                },
+                                icon: const Icon(
+                                  Icons.send,
+                                  color: Colors.white,
+                                  size: 30,
+                                )),
+                          ],
+                        )),
+                  ),
                 )
               ],
             ),
