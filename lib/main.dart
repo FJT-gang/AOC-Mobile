@@ -1,7 +1,6 @@
 // <uses-permission android:name="android.permission.INTERNET"/>
-// flutter build apk --build-name=1.0.1 --build-number=7
+// flutter build apk --build-name=1.0.1 --build-number=6
 import 'package:aoc/pages/chat.dart';
-import 'package:aoc/pages/chatlist.dart';
 import 'package:aoc/pages/profile.dart';
 
 import 'package:aoc/providers/imageprov.dart';
@@ -64,7 +63,6 @@ class MyApp extends StatelessWidget {
         '/calendar': (context) => const Calendar(),
         '/myprofile': (context) => MyProfile(),
         '/explore': (context) => const Explore(),
-        '/chatlist': (context) => const ChatList(),
       },
     );
   }
