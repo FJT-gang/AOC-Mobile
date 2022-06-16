@@ -12,7 +12,6 @@ import '../services/imgserv.dart';
 
 import '../providers/themeprov.dart';
 
-
 class Chat extends StatelessWidget {
   late String userName;
   late String otherUserId;
@@ -59,10 +58,9 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     var fireProv = Provider.of<FireProv>(context, listen: true);
     var messageStream = Provider.of<List>(context, listen: true);
-     var themeProv = Provider.of<ThemeProv>(context, listen: true);
+    var themeProv = Provider.of<ThemeProv>(context, listen: true);
 
     ImgServ imgServ = ImgServ();
-
 
     List messageData = [];
     List<Widget> userMessages = [const SizedBox(height: 50)];
@@ -142,12 +140,12 @@ class _ChatPageState extends State<ChatPage> {
               children: [
                 Container(
                   height: height * 0.10,
-                  color: Globals.bgDarkBlue,
+                  color: themeProv.homecard,
                   child: Row(
                     children: [
                       IconButton(
                           onPressed: () {
-                            // go back button
+                            Navigator.pop(context);
                           },
                           icon: const Icon(
                             Icons.arrow_back,
@@ -173,15 +171,15 @@ class _ChatPageState extends State<ChatPage> {
                     ],
                   ),
                 ),
-                  Container(
-                      width: 1000,
-                      height: height * 0.71,
-                      color: themeProv.bgColor,
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        children: userMessages,
-                      )),
+                Container(
+                    width: 1000,
+                    height: height * 0.71,
+                    color: themeProv.bgColor,
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      children: userMessages,
+                    )),
 
                 // text container
                 Expanded(
@@ -194,7 +192,7 @@ class _ChatPageState extends State<ChatPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                                width: 300,
+                                width: 250,
                                 height: 30,
                                 color: Colors.white,
                                 child: TextFormField(
@@ -203,23 +201,27 @@ class _ChatPageState extends State<ChatPage> {
                                     hintText: 'Typ your message',
                                   ),
                                 )),
-                                IconButton(
-                            onPressed: () {
-                              pickImage();
-                            },
-                            icon: const Icon(Icons.photo, color: Colors.white),
-                          ),
+                            IconButton(
+                              onPressed: () {
+                                pickImage();
+                              },
+                              icon: const Icon(
+                                Icons.photo,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            ),
                             IconButton(
                                 onPressed: () {
-                                  fireProv.sendMessages(
-                                      widget.otherUsrId, messageController.text, 'text');
+                                  fireProv.sendMessages(widget.otherUsrId,
+                                      messageController.text, 'text');
                                   setState(() {});
                                   messageController.text = "";
                                 },
                                 icon: const Icon(
                                   Icons.send,
                                   color: Colors.white,
-                                  size: 30,
+                                  size: 25,
                                 )),
                           ],
                         )),
@@ -242,7 +244,6 @@ class Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Widget message = const Text('');
     if (type == 'text') {
       message = SizedBox(
@@ -262,20 +263,20 @@ class Message extends StatelessWidget {
         width: 200,
       );
     }
-    Color? msgColor = fromUsr ? Colors.blue[900] : Colors.blue[200];
+    var themeProv = Provider.of<ThemeProv>(context, listen: true);
+    Color? msgColor = fromUsr ? themeProv.frstMsg : themeProv.scndMsg;
 
     return Container(
       padding: const EdgeInsets.all(16),
       child: Align(
         alignment: fromUsr ? Alignment.topRight : Alignment.topLeft,
-        child: Container( 
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+        child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
               color: msgColor,
-          ),
-           child: message
-          ),
+            ),
+            child: message),
       ),
     );
   }

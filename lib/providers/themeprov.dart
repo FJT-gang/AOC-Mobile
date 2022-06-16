@@ -8,6 +8,8 @@ class ThemeProv extends ChangeNotifier {
   Color grStart = Globals.grBlueStart;
   Color grEnd = Globals.grBlueEnd;
   Color homecard = Globals.bgDarkBlue;
+  Color frstMsg = Globals.frstMsg;
+  Color scndMsg = Globals.scndMsg;
 
   String color = 'blue';
 
@@ -18,11 +20,15 @@ class ThemeProv extends ChangeNotifier {
       grStart = Globals.grBlueStart;
       grEnd = Globals.grBlueEnd;
       homecard = Globals.bgDarkBlue;
+      frstMsg = Globals.frstMsg;
+      scndMsg = Globals.scndMsg;
     } else if (colorr == 'orange') {
       bgColor = Globals.bgOrange;
       grStart = Globals.grOrangeStart;
       grEnd = Globals.grOrangeEnd;
       homecard = Color.fromARGB(255, 255, 106, 0);
+      frstMsg = Color.fromARGB(255, 225, 71, 0);
+      scndMsg = Color.fromARGB(255, 255, 116, 51);
     }
 
     notifyListeners();

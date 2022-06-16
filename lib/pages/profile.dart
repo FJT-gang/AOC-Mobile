@@ -153,11 +153,19 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           Row(
                             children: [
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  )),
                               const Padding(
                                 padding: EdgeInsets.all(10),
                                 child: ThemeSelector(),
                               ),
-                              const SizedBox(width: 225),
+                              const SizedBox(width: 175),
                               IconButton(
                                 icon: const Icon(Icons.chat),
                                 color: Colors.white,
@@ -165,7 +173,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Chat(otherUserId: userId, userName: userName, imgSource: imgPf,)),
+                                        builder: (context) => Chat(
+                                              otherUserId: userId,
+                                              userName: userName,
+                                              imgSource: imgPf,
+                                            )),
                                   );
                                 },
                               ),
